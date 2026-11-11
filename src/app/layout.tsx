@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { PortfolioPreloader } from "@/components/preloader/PortfolioPreloader";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -78,6 +79,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen selection:bg-[var(--blue)] selection:text-white">
+        <PortfolioPreloader />
         {children}
       </body>
     </html>

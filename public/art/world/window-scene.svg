@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800">
+  <defs>
+    <linearGradient id="wnWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0C1226"/>
+      <stop offset="1" stop-color="#070B18"/>
+    </linearGradient>
+    <linearGradient id="wnSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1130"/>
+      <stop offset="0.45" stop-color="#241A5C"/>
+      <stop offset="0.75" stop-color="#8A4178"/>
+      <stop offset="0.92" stop-color="#E8824C"/>
+      <stop offset="1" stop-color="#F5A623"/>
+    </linearGradient>
+    <radialGradient id="wnSun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFF3DC"/>
+      <stop offset="0.6" stop-color="#FFD08A"/>
+      <stop offset="1" stop-color="#F5A623" stop-opacity="0.2"/>
+    </radialGradient>
+    <linearGradient id="wnRay" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD08A" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFD08A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wnCurtain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#16203A"/>
+      <stop offset="1" stop-color="#243049"/>
+    </linearGradient>
+    <clipPath id="wnClip"><rect x="240" y="90" width="920" height="600" rx="18"/></clipPath>
+    <style>
+      @keyframes mote { 0% { transform: translate(0,0); opacity:0; } 20% { opacity:.8; } 100% { transform: translate(40px,-120px); opacity:0; } }
+      .m { animation: mote 6s linear infinite; }
+      .m2 { animation-delay: -2s; animation-duration: 8s; }
+      .m3 { animation-delay: -4s; animation-duration: 7s; }
+      @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+      .isle { animation: bob 5s ease-in-out infinite; }
+      .isle2 { animation-delay: -2.5s; }
+      .isle3 { animation-delay: -1.2s; }
+      @keyframes tw { 0%,100% { opacity:.3; } 50% { opacity:1; } }
+      .st { animation: tw 3.4s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Room wall -->
+  <rect width="1400" height="800" fill="url(#wnWall)"/>
+  <ellipse cx="700" cy="390" rx="700" ry="440" fill="#8157F6" opacity="0.10"/>
+
+  <!-- Window view (clipped) -->
+  <g clip-path="url(#wnClip)">
+    <rect x="240" y="90" width="920" height="600" fill="url(#wnSky)"/>
+    <g fill="#EBEFFF">
+      <circle class="st" cx="330" cy="150" r="3.4"/>
+      <circle class="st" cx="470" cy="120" r="2.6" style="animation-delay:-1s"/>
+      <circle class="st" cx="640" cy="170" r="3" style="animation-delay:-2s"/>
+      <circle class="st" cx="820" cy="130" r="2.8" style="animation-delay:-1.6s"/>
+      <circle class="st" cx="1010" cy="180" r="3.2" style="animation-delay:-2.6s"/>
+      <circle class="st" cx="1110" cy="140" r="2.4" style="animation-delay:-.6s"/>
+      <circle class="st" cx="380" cy="230" r="2.4" style="animation-delay:-3s"/>
+      <circle class="st" cx="920" cy="240" r="2.6" style="animation-delay:-1.2s"/>
+    </g>
+    <circle cx="700" cy="640" r="360" fill="url(#wnSun)" opacity="0.7"/>
+    <circle cx="700" cy="640" r="90" fill="url(#wnSun)"/>
+    <path d="M240 620 L420 500 L560 610 L700 520 L860 620 L1010 510 L1160 620 L1160 690 L240 690 Z" fill="#2A2C5E" opacity="0.75"/>
+    <!-- Floating islands in view -->
+    <g class="isle">
+      <ellipse cx="450" cy="360" rx="80" ry="18" fill="#4A3520"/>
+      <path d="M372 362 Q450 386 528 362 C540 384 512 414 470 436 C450 446 436 456 428 468 C418 454 400 442 378 430 C336 408 358 384 372 362 Z" fill="#1B1528"/>
+      <rect x="424" y="316" width="44" height="44" rx="6" fill="#241C33"/>
+      <path d="M418 320 l28 -22 l28 22 Z" fill="#332747"/>
+      <rect x="436" y="332" width="12" height="12" rx="2" fill="#F5A623" class="st"/>
+      <ellipse cx="450" cy="474" rx="60" ry="14" fill="#F5A623" opacity="0.35"/>
+    </g>
+    <g class="isle isle2">
+      <ellipse cx="880" cy="300" rx="64" ry="14" fill="#254866"/>
+      <path d="M818 302 Q880 320 942 302 C952 320 930 344 898 362 C884 370 874 378 868 386 C860 374 846 364 830 354 C798 336 810 320 818 302 Z" fill="#121B30"/>
+      <circle cx="880" cy="272" r="26" fill="#38BDF8" opacity="0.35"/>
+      <circle cx="880" cy="274" r="12" fill="#EBEFFF" class="st"/>
+      <ellipse cx="880" cy="392" rx="50" ry="12" fill="#38BDF8" opacity="0.35"/>
+    </g>
+    <g class="isle isle3">
+      <ellipse cx="1060" cy="470" rx="52" ry="12" fill="#652549"/>
+      <path d="M1010 472 Q1060 486 1110 472 C1118 486 1100 506 1074 520 C1062 526 1054 532 1050 538 C1042 528 1032 520 1018 512 C994 498 1002 486 1010 472 Z" fill="#22101F"/>
+      <rect x="1044" y="440" width="30" height="32" rx="5" fill="#2A1224"/>
+      <rect x="1050" y="450" width="18" height="8" rx="4" fill="#EC4899" class="st"/>
+      <ellipse cx="1060" cy="544" rx="42" ry="10" fill="#EC4899" opacity="0.35"/>
+    </g>
+    <g fill="#F7F5EF" opacity="0.5">
+      <ellipse cx="360" cy="450" rx="130" ry="34"/>
+      <ellipse cx="470" cy="466" rx="100" ry="28"/>
+      <ellipse cx="960" cy="410" rx="120" ry="30"/>
+      <ellipse cx="1080" cy="428" rx="90" ry="26"/>
+      <ellipse cx="700" cy="540" rx="170" ry="40" opacity="0.7"/>
+    </g>
+    <g stroke="#0A0F1E" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.6">
+      <path d="M560 220 q 12 -10 24 0 q 12 -10 24 0"/>
+      <path d="M620 250 q 9 -8 18 0 q 9 -8 18 0"/>
+      <path d="M760 210 q 11 -9 22 0 q 11 -9 22 0"/>
+    </g>
+  </g>
+
+  <!-- Volumetric light rays into room -->
+  <polygon points="260,110 1140,110 1340,800 60,800" fill="url(#wnRay)" opacity="0.5"/>
+  <g fill="#FFD9A0">
+    <circle class="m"  cx="500" cy="620" r="5"/>
+    <circle class="m m2" cx="760" cy="660" r="4"/>
+    <circle class="m m3" cx="960" cy="600" r="6"/>
+    <circle class="m m2" cx="380" cy="680" r="4"/>
+    <circle class="m m3" cx="1140" cy="650" r="5"/>
+  </g>
+
+  <!-- Window frame -->
+  <rect x="228" y="78" width="944" height="624" rx="22" fill="none" stroke="#3B2F23" stroke-width="26"/>
+  <rect x="240" y="90" width="920" height="600" rx="18" fill="none" stroke="#57462F" stroke-width="8"/>
+  <path d="M700 90 v600 M240 390 h920" stroke="#3B2F23" stroke-width="18"/>
+  <rect x="196" y="694" width="1008" height="34" rx="12" fill="#57462F"/>
+  <rect x="196" y="722" width="1008" height="16" rx="8" fill="#3B2F23"/>
+
+  <!-- Curtains -->
+  <path d="M120 40 Q 190 380 130 760 L 60 760 L 60 40 Z" fill="url(#wnCurtain)"/>
+  <path d="M180 60 Q 230 400 190 740" stroke="#16203A" stroke-width="26" fill="none" opacity="0.8"/>
+  <path d="M1280 40 Q 1210 380 1270 760 L 1340 760 L 1340 40 Z" fill="url(#wnCurtain)"/>
+  <path d="M1220 60 Q 1170 400 1210 740" stroke="#16203A" stroke-width="26" fill="none" opacity="0.8"/>
+
+  <!-- Sill objects -->
+  <g>
+    <rect x="300" y="646" width="60" height="50" rx="10" fill="#3B2F23"/>
+    <g fill="#4E9E3A">
+      <ellipse cx="316" cy="628" rx="12" ry="22" transform="rotate(-22 316 628)"/>
+      <ellipse cx="344" cy="626" rx="12" ry="22" transform="rotate(18 344 626)"/>
+      <ellipse cx="330" cy="616" rx="11" ry="20"/>
+    </g>
+    <rect x="1050" y="654" width="52" height="42" rx="9" fill="#3B2F23"/>
+    <g fill="#A3D977">
+      <ellipse cx="1064" cy="640" rx="10" ry="18" transform="rotate(-18 1064 640)"/>
+      <ellipse cx="1088" cy="638" rx="10" ry="18" transform="rotate(16 1088 638)"/>
+    </g>
+    <rect x="620" y="668" width="26" height="28" rx="6" fill="#EBEFFF" opacity="0.9"/>
+    <ellipse cx="633" cy="662" rx="7" ry="12" fill="#F5A623" class="st"/>
+  </g>
+</svg>

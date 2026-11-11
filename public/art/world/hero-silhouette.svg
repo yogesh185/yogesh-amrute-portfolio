@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 420" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="fgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#070B18"/>
+      <stop offset="1" stop-color="#04060E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Back rooftop line -->
+  <g fill="#070B18">
+    <path d="M0 420 L0 240 L160 240 L160 200 L200 200 L200 240 L340 240 L340 214 L480 214 L480 240 L640 240 L640 190 L676 190 L676 240 L820 240 L820 220 L980 220 L980 240 L1160 240 L1160 204 L1200 204 L1200 240 L1380 240 L1380 218 L1540 218 L1540 240 L1720 240 L1720 196 L1764 196 L1764 240 L1940 240 L1940 222 L2120 222 L2120 240 L2280 240 L2280 208 L2400 208 L2400 420 Z"/>
+    <!-- Antennas -->
+    <path d="M660 190 l0 -46 M654 152 l12 0" stroke="#070B18" stroke-width="6"/>
+    <path d="M1740 196 l0 -40" stroke="#070B18" stroke-width="6"/>
+    <circle cx="660" cy="140" r="5" fill="#EF4444"/>
+    <circle cx="1740" cy="152" r="5" fill="#22C55E"/>
+  </g>
+
+  <!-- Front ground -->
+  <path d="M0 420 L0 320 Q 300 290 600 316 Q 900 344 1200 314 Q 1500 286 1800 316 Q 2100 344 2400 310 L2400 420 Z"
+        fill="url(#fgGrad)"/>
+
+  <!-- Grass tufts -->
+  <g stroke="#04060E" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M120 344 q 4 -18 2 -26 M132 344 q 8 -16 14 -22 M108 346 q -4 -16 -8 -22"/>
+    <path d="M760 352 q 4 -18 2 -26 M772 352 q 8 -16 14 -22"/>
+    <path d="M1420 340 q 4 -18 2 -26 M1432 340 q 8 -16 14 -22 M1408 342 q -4 -16 -8 -22"/>
+    <path d="M2050 350 q 4 -18 2 -26 M2062 350 q 8 -16 14 -22"/>
+  </g>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1400" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#04070F"/>
+      <stop offset="0.30" stop-color="#0A1130"/>
+      <stop offset="0.55" stop-color="#241A5C"/>
+      <stop offset="0.74" stop-color="#5B3084"/>
+      <stop offset="0.87" stop-color="#B75A6E"/>
+      <stop offset="0.95" stop-color="#E8824C"/>
+      <stop offset="1" stop-color="#F5A623"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFD9A0" stop-opacity="0.95"/>
+      <stop offset="0.35" stop-color="#F5A623" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#F5A623" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sunCore" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFF3DC"/>
+      <stop offset="0.7" stop-color="#FFD08A"/>
+      <stop offset="1" stop-color="#F5A623"/>
+    </radialGradient>
+    <linearGradient id="horizonHaze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5A623" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FFB65C" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      .twinkle { animation: tw 4s ease-in-out infinite; }
+      .twinkle2 { animation: tw 6s ease-in-out infinite; animation-delay: -2s; }
+      @keyframes tw { 0%,100% { opacity: .25; } 50% { opacity: .9; } }
+    </style>
+  </defs>
+
+  <!-- Dusk gradient -->
+  <rect width="2400" height="1400" fill="url(#skyGrad)"/>
+
+  <!-- Stars (upper sky) -->
+  <g fill="#EBEFFF">
+    <circle class="twinkle"  cx="180"  cy="90"   r="2.4" opacity=".7"/>
+    <circle class="twinkle2" cx="420"  cy="180"  r="1.8" opacity=".5"/>
+    <circle cx="640"  cy="70"   r="2.2" opacity=".8"/>
+    <circle class="twinkle"  cx="880"  cy="220"  r="1.6" opacity=".45"/>
+    <circle cx="1080" cy="120"  r="2.6" opacity=".75"/>
+    <circle class="twinkle2" cx="1320" cy="60"   r="2"   opacity=".65"/>
+    <circle cx="1540" cy="200"  r="1.7" opacity=".5"/>
+    <circle class="twinkle"  cx="1760" cy="110"  r="2.5" opacity=".8"/>
+    <circle cx="1980" cy="250"  r="1.8" opacity=".45"/>
+    <circle class="twinkle2" cx="2200" cy="80"   r="2.2" opacity=".7"/>
+    <circle cx="2320" cy="300"  r="1.6" opacity=".5"/>
+    <circle cx="300"  cy="330"  r="1.5" opacity=".4"/>
+    <circle class="twinkle"  cx="760"  cy="360"  r="1.8" opacity=".45"/>
+    <circle cx="1180" cy="300"  r="1.5" opacity=".4"/>
+    <circle class="twinkle2" cx="1660" cy="340"  r="1.9" opacity=".5"/>
+    <circle cx="2060" cy="400"  r="1.5" opacity=".4"/>
+    <circle cx="520"  cy="470"  r="1.4" opacity=".35"/>
+    <circle class="twinkle"  cx="1440" cy="440"  r="1.6" opacity=".4"/>
+    <circle cx="940"  cy="520"  r="1.3" opacity=".3"/>
+    <circle class="twinkle2" cx="1880" cy="500"  r="1.5" opacity=".35"/>
+  </g>
+
+  <!-- Aurora ribbon (subtle cinematic purple) -->
+  <path d="M -100 520 Q 500 380 1100 500 T 2500 460" stroke="#8157F6" stroke-width="90" fill="none" opacity="0.10" filter="url(#none)"/>
+  <path d="M -100 560 Q 600 430 1200 545 T 2500 510" stroke="#38BDF8" stroke-width="50" fill="none" opacity="0.07"/>
+
+  <!-- Setting sun -->
+  <circle cx="1200" cy="1180" r="560" fill="url(#sunGlow)"/>
+  <circle cx="1200" cy="1180" r="130" fill="url(#sunCore)"/>
+
+  <!-- Horizon haze -->
+  <rect x="0" y="1080" width="2400" height="320" fill="url(#horizonHaze)"/>
+
+  <!-- Distant birds -->
+  <g stroke="#0A0F1E" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.55">
+    <path d="M 640 640 q 14 -12 28 0 q 14 -12 28 0"/>
+    <path d="M 730 606 q 10 -9 20 0 q 10 -9 20 0"/>
+    <path d="M 1706 588 q 12 -10 24 0 q 12 -10 24 0"/>
+    <path d="M 1790 624 q 9 -8 18 0 q 9 -8 18 0"/>
+  </g>
+</svg>

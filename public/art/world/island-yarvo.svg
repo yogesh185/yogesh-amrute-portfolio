@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 560">
+  <defs>
+    <linearGradient id="yvRock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#33192C"/>
+      <stop offset="0.6" stop-color="#22101F"/>
+      <stop offset="1" stop-color="#150A14"/>
+    </linearGradient>
+    <linearGradient id="yvTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A03A6E"/>
+      <stop offset="1" stop-color="#652549"/>
+    </linearGradient>
+    <linearGradient id="yvFall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD1EA" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#EC4899" stop-opacity="0.05"/>
+    </linearGradient>
+    <radialGradient id="yvGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#EC4899" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#EC4899" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="yvBlur"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="yvBlurSm"><feGaussianBlur stdDeviation="5"/></filter>
+    <style>
+      @keyframes fall { 0% { transform: translateY(-30px); opacity:.4; } 50% { opacity:.95; } 100% { transform: translateY(60px); opacity:.2; } }
+      .wf { animation: fall 2.5s linear infinite; }
+      @keyframes flick { 0%,100% { opacity:.6; } 50% { opacity:1; } }
+      .neon { animation: flick 1.8s ease-in-out infinite; }
+      @keyframes sweep { 0% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } 100% { transform: rotate(-16deg); } }
+      .beam { transform-origin: bottom center; animation: sweep 7s ease-in-out infinite; }
+      .beam2 { animation-delay: -3.5s; }
+    </style>
+  </defs>
+
+  <!-- Under-glow -->
+  <ellipse cx="350" cy="470" rx="270" ry="60" fill="url(#yvGlow)" filter="url(#yvBlur)"/>
+
+  <!-- Waterfall -->
+  <path d="M170 254 C162 328, 174 402, 180 472" stroke="url(#yvFall)" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.85"/>
+  <path d="M170 254 C162 328, 174 402, 180 472" stroke="#FFD1EA" stroke-width="5" fill="none" stroke-linecap="round" class="wf" stroke-dasharray="12 24"/>
+
+  <!-- Rock -->
+  <path d="M 95 232 Q 350 308 605 232 C 642 282, 604 352, 524 402 C 464 448, 402 492, 350 532 C 298 492, 236 448, 176 402 C 96 352, 58 282, 95 232 Z"
+        fill="url(#yvRock)"/>
+  <g stroke="#0F050D" stroke-width="5" fill="none" opacity="0.55">
+    <path d="M120 300 Q 350 372 580 300"/>
+    <path d="M170 372 Q 350 432 530 372"/>
+    <path d="M250 452 Q 350 492 452 452"/>
+  </g>
+  <g stroke="#EC4899" stroke-width="3" fill="none" opacity="0.35">
+    <path d="M590 262 Q 520 300 452 320"/>
+    <path d="M110 262 Q 190 298 280 318"/>
+  </g>
+
+  <!-- Plateau -->
+  <ellipse cx="350" cy="230" rx="258" ry="66" fill="url(#yvTop)"/>
+  <path d="M 100 224 Q 350 168 600 224" stroke="#FF9ECB" stroke-width="5" fill="none" opacity="0.6"/>
+  <ellipse cx="350" cy="246" rx="238" ry="46" fill="#0F050D" opacity="0.25"/>
+
+  <!-- STUDIO TOWER -->
+  <g>
+    <rect x="380" y="110" width="96" height="128" rx="10" fill="#2A1224"/>
+    <rect x="388" y="120" width="80" height="10" rx="5" fill="#EC4899" class="neon"/>
+    <g fill="#FF9ECB" class="neon">
+      <rect x="396" y="144" width="24" height="18" rx="4" style="animation-delay:-.6s"/>
+      <rect x="432" y="144" width="24" height="18" rx="4" style="animation-delay:-1.2s"/>
+      <rect x="396" y="174" width="24" height="18" rx="4" style="animation-delay:-.3s"/>
+      <rect x="432" y="174" width="24" height="18" rx="4" style="animation-delay:-1.5s"/>
+    </g>
+    <!-- Neon sign -->
+    <rect x="392" y="204" width="72" height="26" rx="13" fill="#EC4899" opacity="0.9" class="neon"/>
+    <text x="428" y="223" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#150A14" text-anchor="middle">YARVO</text>
+    <!-- Rooftop antenna -->
+    <path d="M428 110 l0 -30" stroke="#652549" stroke-width="5"/>
+    <circle cx="428" cy="74" r="7" fill="#EC4899" class="neon"/>
+  </g>
+
+  <!-- BILLBOARD -->
+  <g>
+    <path d="M196 240 l0 -70" stroke="#652549" stroke-width="8"/>
+    <rect x="150" y="120" width="130" height="66" rx="8" fill="#2A1224" stroke="#EC4899" stroke-width="3"/>
+    <text x="215" y="152" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FF9ECB" text-anchor="middle">BUILD</text>
+    <text x="215" y="174" font-family="Arial, sans-serif" font-size="14" fill="#EBEFFF" text-anchor="middle" opacity="0.8">IN PUBLIC</text>
+    <!-- Spotlights -->
+    <g class="beam">
+      <polygon points="300,242 268,96 340,96" fill="#EC4899" opacity="0.14"/>
+    </g>
+    <g class="beam beam2">
+      <polygon points="330,244 300,110 372,110" fill="#8157F6" opacity="0.12"/>
+    </g>
+    <circle cx="300" cy="244" r="10" fill="#2A1224" stroke="#EC4899" stroke-width="3"/>
+    <circle cx="330" cy="246" r="10" fill="#2A1224" stroke="#8157F6" stroke-width="3"/>
+  </g>
+
+  <!-- Gear crates + plant -->
+  <g>
+    <rect x="118" y="214" width="32" height="26" rx="4" fill="#652549"/>
+    <rect x="124" y="204" width="22" height="14" rx="3" fill="#A03A6E"/>
+    <rect x="516" y="216" width="36" height="24" rx="5" fill="#2A1224"/>
+    <circle cx="566" cy="228" r="16" fill="#A3D977" opacity="0.7"/>
+    <rect x="563" y="230" width="6" height="14" rx="3" fill="#652549"/>
+  </g>
+
+  <!-- Debris -->
+  <circle cx="630" cy="348" r="11" fill="#22101F"/>
+  <circle cx="84" cy="390" r="9" fill="#33192C"/>
+</svg>

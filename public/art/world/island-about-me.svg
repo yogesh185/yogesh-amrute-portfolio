@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 560">
+  <defs>
+    <linearGradient id="abRock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#271C47"/>
+      <stop offset="0.6" stop-color="#1A1331"/>
+      <stop offset="1" stop-color="#100B20"/>
+    </linearGradient>
+    <linearGradient id="abTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6B4BA8"/>
+      <stop offset="1" stop-color="#46307A"/>
+    </linearGradient>
+    <linearGradient id="abFall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBEFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#C4B5FD" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="mtnFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5A3F96"/>
+      <stop offset="1" stop-color="#2E2054"/>
+    </linearGradient>
+    <radialGradient id="abGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8157F6" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#8157F6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fire" cx="0.5" cy="0.6" r="0.6">
+      <stop offset="0" stop-color="#FFE9B8"/>
+      <stop offset="0.5" stop-color="#F5A623"/>
+      <stop offset="1" stop-color="#EF4444" stop-opacity="0.3"/>
+    </radialGradient>
+    <filter id="abBlur"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="abBlurSm"><feGaussianBlur stdDeviation="4"/></filter>
+    <style>
+      @keyframes fall { 0% { transform: translateY(-30px); opacity:.4; } 50% { opacity:.95; } 100% { transform: translateY(60px); opacity:.2; } }
+      .wf { animation: fall 2.6s linear infinite; }
+      @keyframes flame { 0%,100% { transform: scaleY(1) scaleX(1); opacity:.9; } 50% { transform: scaleY(1.25) scaleX(0.9); opacity:1; } }
+      .fire { transform-origin: bottom center; animation: flame .9s ease-in-out infinite; }
+      @keyframes flick { 0%,100% { opacity:.6; } 50% { opacity:1; } }
+      .lit { animation: flick 2.4s ease-in-out infinite; }
+      @keyframes wave { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+      .flag { transform-origin: left center; animation: wave 2.2s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Under-glow -->
+  <ellipse cx="350" cy="470" rx="270" ry="60" fill="url(#abGlow)" filter="url(#abBlur)"/>
+
+  <!-- Waterfall -->
+  <path d="M540 254 C548 328, 536 400, 530 470" stroke="url(#abFall)" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M540 254 C548 328, 536 400, 530 470" stroke="#EBEFFF" stroke-width="5" fill="none" stroke-linecap="round" class="wf" stroke-dasharray="12 24"/>
+
+  <!-- Rock -->
+  <path d="M 95 232 Q 350 308 605 232 C 642 282, 604 352, 524 402 C 464 448, 402 492, 350 532 C 298 492, 236 448, 176 402 C 96 352, 58 282, 95 232 Z"
+        fill="url(#abRock)"/>
+  <g stroke="#0A0616" stroke-width="5" fill="none" opacity="0.55">
+    <path d="M120 300 Q 350 372 580 300"/>
+    <path d="M170 372 Q 350 432 530 372"/>
+    <path d="M250 452 Q 350 492 452 452"/>
+  </g>
+  <g stroke="#8157F6" stroke-width="3" fill="none" opacity="0.4">
+    <path d="M110 262 Q 200 298 300 318"/>
+    <path d="M590 262 Q 520 300 452 320"/>
+  </g>
+
+  <!-- Plateau -->
+  <ellipse cx="350" cy="230" rx="258" ry="66" fill="url(#abTop)"/>
+  <path d="M 100 224 Q 350 168 600 224" stroke="#C4B5FD" stroke-width="5" fill="none" opacity="0.6"/>
+  <ellipse cx="350" cy="246" rx="238" ry="46" fill="#0A0616" opacity="0.25"/>
+
+  <!-- MOUNTAIN PEAK -->
+  <g>
+    <path d="M300 236 L400 60 L500 236 Z" fill="url(#mtnFace)"/>
+    <path d="M400 60 L452 150 L420 140 L400 168 L376 142 L348 152 Z" fill="#EBEFFF" opacity="0.9"/>
+    <path d="M400 60 L424 104 L404 96 L392 116 L376 100 Z" fill="#FFFFFF"/>
+    <path d="M300 236 L400 60 L360 236 Z" fill="#0A0616" opacity="0.25"/>
+    <path d="M400 60 l0 -34" stroke="#EBEFFF" stroke-width="5" stroke-linecap="round"/>
+    <path class="flag" d="M402 26 l34 10 l-34 12 Z" fill="#EC4899"/>
+    <path d="M318 232 q 30 -50 60 -70 q 24 -16 40 -36" stroke="#C4B5FD" stroke-width="4" fill="none" stroke-dasharray="8 10" opacity="0.7"/>
+  </g>
+
+  <!-- CABIN -->
+  <g>
+    <rect x="158" y="182" width="92" height="54" rx="6" fill="#3A2A5E"/>
+    <path d="M150 188 l54 -38 l54 38 Z" fill="#5A3F96"/>
+    <rect x="174" y="204" width="24" height="22" rx="4" fill="#F5A623" class="lit"/>
+    <rect x="212" y="204" width="22" height="32" rx="4" fill="#241A42"/>
+    <rect x="222" y="150" width="14" height="28" rx="4" fill="#241A42"/>
+    <g fill="#C4B5FD">
+      <circle cx="229" cy="140" r="7" opacity="0.6" class="lit"/>
+      <circle cx="235" cy="124" r="6" opacity="0.4" class="lit" style="animation-delay:-1.2s"/>
+    </g>
+  </g>
+
+  <!-- CAMPFIRE -->
+  <g>
+    <ellipse cx="352" cy="240" rx="34" ry="10" fill="#0A0616" opacity="0.4"/>
+    <g class="fire">
+      <ellipse cx="352" cy="222" rx="15" ry="22" fill="url(#fire)"/>
+      <ellipse cx="352" cy="228" rx="8" ry="13" fill="#FFF3C4"/>
+    </g>
+    <g stroke="#5A3F96" stroke-width="5" stroke-linecap="round">
+      <path d="M336 242 l32 -8"/><path d="M368 242 l-32 -8"/>
+    </g>
+    <circle cx="352" cy="224" r="34" fill="#F5A623" opacity="0.35" filter="url(#abBlurSm)" class="lit"/>
+  </g>
+
+  <!-- HERO CHARACTER (with cap, waving) -->
+  <g>
+    <ellipse cx="486" cy="244" rx="26" ry="7" fill="#0A0616" opacity="0.4"/>
+    <path d="M478 244 l-2 -22 M494 244 l2 -22" stroke="#1F2937" stroke-width="9" stroke-linecap="round"/>
+    <rect x="470" y="182" width="32" height="44" rx="12" fill="#8157F6"/>
+    <path d="M472 192 q -16 -14 -10 -30" stroke="#8157F6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M500 196 q 12 8 12 22" stroke="#8157F6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="486" cy="168" r="15" fill="#F0C9A8"/>
+    <path d="M470 164 a 16 16 0 0 1 32 0 Z" fill="#EC4899"/>
+    <path d="M470 164 l -12 2 l 12 4 Z" fill="#EC4899"/>
+    <circle cx="492" cy="160" r="2.5" fill="#0A0616"/>
+  </g>
+
+  <!-- Pines -->
+  <g>
+    <rect x="560" y="216" width="7" height="22" rx="3" fill="#3A2A5E"/>
+    <path d="M563 176 l20 44 h-40 Z" fill="#46307A"/>
+    <path d="M563 196 l16 34 h-32 Z" fill="#5A3F96"/>
+    <rect x="122" y="222" width="6" height="18" rx="3" fill="#3A2A5E"/>
+    <path d="M125 192 l16 36 h-32 Z" fill="#46307A"/>
+  </g>
+
+  <!-- Debris -->
+  <circle cx="628" cy="346" r="11" fill="#1A1331"/>
+  <circle cx="84" cy="388" r="9" fill="#271C47"/>
+</svg>

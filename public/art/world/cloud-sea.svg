@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 520" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="cloudFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBEFFF" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#B9C2E8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#7C86BE" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="cloudFill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F5EF" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#9AA3D0" stop-opacity="0.22"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-40%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="soft2" x="-20%" y="-40%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+  </defs>
+
+  <!-- Deep haze base -->
+  <rect y="300" width="2400" height="220" fill="#7C86BE" opacity="0.18" filter="url(#soft2)"/>
+
+  <!-- Cloud bank layer 1 (back) -->
+  <g fill="url(#cloudFill)" filter="url(#soft)">
+    <ellipse cx="150"  cy="360" rx="260" ry="90"/>
+    <ellipse cx="430"  cy="390" rx="300" ry="110"/>
+    <ellipse cx="760"  cy="370" rx="280" ry="95"/>
+    <ellipse cx="1080" cy="400" rx="320" ry="120"/>
+    <ellipse cx="1420" cy="375" rx="290" ry="100"/>
+    <ellipse cx="1750" cy="400" rx="310" ry="115"/>
+    <ellipse cx="2080" cy="370" rx="280" ry="95"/>
+    <ellipse cx="2340" cy="395" rx="260" ry="105"/>
+  </g>
+
+  <!-- Cloud bank layer 2 (front, brighter) -->
+  <g fill="url(#cloudFill2)" filter="url(#soft)">
+    <ellipse cx="80"   cy="440" rx="280" ry="95"/>
+    <ellipse cx="380"  cy="465" rx="320" ry="110"/>
+    <ellipse cx="720"  cy="445" rx="300" ry="100"/>
+    <ellipse cx="1040" cy="470" rx="330" ry="115"/>
+    <ellipse cx="1380" cy="450" rx="300" ry="105"/>
+    <ellipse cx="1720" cy="472" rx="320" ry="112"/>
+    <ellipse cx="2050" cy="448" rx="290" ry="98"/>
+    <ellipse cx="2360" cy="470" rx="270" ry="108"/>
+  </g>
+
+  <!-- Wispy tops -->
+  <g fill="#F7F5EF" opacity="0.5" filter="url(#soft)">
+    <ellipse cx="300"  cy="330" rx="150" ry="40"/>
+    <ellipse cx="900"  cy="340" rx="170" ry="45"/>
+    <ellipse cx="1550" cy="335" rx="160" ry="42"/>
+    <ellipse cx="2150" cy="345" rx="155" ry="44"/>
+  </g>
+</svg>

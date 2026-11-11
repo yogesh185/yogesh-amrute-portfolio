@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 460" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="fcFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F5EF" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#8B93AC" stop-opacity="0.30"/>
+    </linearGradient>
+    <filter id="fcSoft" x="-25%" y="-50%" width="150%" height="220%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <g fill="url(#fcFill)" filter="url(#fcSoft)">
+    <ellipse cx="120"  cy="300" rx="340" ry="130"/>
+    <ellipse cx="520"  cy="350" rx="380" ry="150"/>
+    <ellipse cx="980"  cy="310" rx="360" ry="135"/>
+    <ellipse cx="1440" cy="360" rx="390" ry="155"/>
+    <ellipse cx="1900" cy="315" rx="360" ry="135"/>
+    <ellipse cx="2320" cy="355" rx="330" ry="150"/>
+  </g>
+  <!-- Bright tops -->
+  <g fill="#FFFFFF" opacity="0.4" filter="url(#fcSoft)">
+    <ellipse cx="340"  cy="245" rx="200" ry="60"/>
+    <ellipse cx="1180" cy="250" rx="220" ry="65"/>
+    <ellipse cx="2040" cy="250" rx="210" ry="62"/>
+  </g>
+</svg>

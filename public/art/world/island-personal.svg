@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 560">
+  <defs>
+    <linearGradient id="ppRock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22301F"/>
+      <stop offset="0.6" stop-color="#16211A"/>
+      <stop offset="1" stop-color="#0E1512"/>
+    </linearGradient>
+    <linearGradient id="ppTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5E8F3E"/>
+      <stop offset="1" stop-color="#3B6127"/>
+    </linearGradient>
+    <linearGradient id="ppFall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBEFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#9BD4F5" stop-opacity="0.05"/>
+    </linearGradient>
+    <radialGradient id="ppGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#4ADE80" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#4ADE80" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="ppBlur"><feGaussianBlur stdDeviation="14"/></filter>
+    <style>
+      @keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+      .tree { transform-origin: bottom center; animation: sway 5s ease-in-out infinite; }
+      @keyframes fall { 0% { transform: translateY(-30px); opacity:.4; } 50% { opacity:.95; } 100% { transform: translateY(60px); opacity:.2; } }
+      .wf { animation: fall 2.6s linear infinite; }
+      @keyframes flick { 0%,100% { opacity:.65; } 50% { opacity:1; } }
+      .win { animation: flick 3s ease-in-out infinite; }
+      @keyframes swing { 0%,100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+      .swing { transform-origin: top center; animation: swing 3.4s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Under-glow -->
+  <ellipse cx="350" cy="470" rx="270" ry="60" fill="url(#ppGlow)" filter="url(#ppBlur)"/>
+
+  <!-- Waterfall -->
+  <path d="M158 256 C150 330, 162 402, 168 472" stroke="url(#ppFall)" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M158 256 C150 330, 162 402, 168 472" stroke="#EBEFFF" stroke-width="5" fill="none" stroke-linecap="round" class="wf" stroke-dasharray="12 24"/>
+  <path d="M168 472 q -10 24 6 40" stroke="#9BD4F5" stroke-width="7" fill="none" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Rock -->
+  <path d="M 95 232 Q 350 308 605 232 C 642 282, 604 352, 524 402 C 464 448, 402 492, 350 532 C 298 492, 236 448, 176 402 C 96 352, 58 282, 95 232 Z"
+        fill="url(#ppRock)"/>
+  <g stroke="#0A100C" stroke-width="5" fill="none" opacity="0.55">
+    <path d="M120 300 Q 350 372 580 300"/>
+    <path d="M170 372 Q 350 432 530 372"/>
+    <path d="M250 452 Q 350 492 452 452"/>
+  </g>
+  <g stroke="#4ADE80" stroke-width="3" fill="none" opacity="0.3">
+    <path d="M590 262 Q 520 300 452 320"/>
+  </g>
+
+  <!-- Plateau -->
+  <ellipse cx="350" cy="230" rx="258" ry="66" fill="url(#ppTop)"/>
+  <path d="M 100 224 Q 350 168 600 224" stroke="#A3D977" stroke-width="5" fill="none" opacity="0.6"/>
+  <ellipse cx="350" cy="246" rx="238" ry="46" fill="#0A100C" opacity="0.22"/>
+
+  <!-- COZY HOUSE -->
+  <g>
+    <rect x="300" y="156" width="130" height="80" rx="6" fill="#3E2F22"/>
+    <path d="M292 162 l71 -52 l71 52 Z" fill="#7A3B2E"/>
+    <path d="M292 162 l71 -52 l71 52 Z" fill="none" stroke="#5C2C22" stroke-width="4"/>
+    <!-- Door -->
+    <rect x="352" y="192" width="30" height="44" rx="5" fill="#241B12"/>
+    <circle cx="376" cy="216" r="3" fill="#F5A623"/>
+    <!-- Windows glowing -->
+    <g class="win">
+      <rect x="314" y="176" width="26" height="24" rx="4" fill="#F5A623" opacity="0.9"/>
+      <rect x="394" y="176" width="26" height="24" rx="4" fill="#F5A623" opacity="0.9" style="animation-delay:-1.2s"/>
+    </g>
+    <path d="M327 176 v24 M314 188 h26 M407 176 v24 M394 188 h26" stroke="#241B12" stroke-width="3"/>
+    <!-- Chimney -->
+    <rect x="398" y="120" width="20" height="34" rx="4" fill="#241B12"/>
+  </g>
+
+  <!-- BIG TREE -->
+  <g class="tree">
+    <rect x="176" y="176" width="14" height="62" rx="6" fill="#4A3520"/>
+    <circle cx="183" cy="158" r="46" fill="#4E9E3A"/>
+    <circle cx="150" cy="176" r="30" fill="#5EB848"/>
+    <circle cx="216" cy="174" r="30" fill="#3F8A30"/>
+    <circle cx="196" cy="132" r="26" fill="#63C752"/>
+    <!-- Apples -->
+    <g fill="#EF4444">
+      <circle cx="164" cy="150" r="5"/><circle cx="206" cy="164" r="5"/><circle cx="188" cy="126" r="5"/>
+    </g>
+  </g>
+
+  <!-- GARDEN PLOTS -->
+  <g>
+    <rect x="452" y="216" width="90" height="26" rx="8" fill="#3B2A1E"/>
+    <g fill="#A3D977">
+      <path d="M468 216 l0 -14 M468 202 l-8 -6 M468 202 l8 -6" stroke="#A3D977" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M492 216 l0 -16 M492 200 l-8 -6 M492 200 l8 -6" stroke="#A3D977" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M516 216 l0 -14 M516 202 l-8 -6 M516 202 l8 -6" stroke="#A3D977" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </g>
+    <path d="M452 230 h90" stroke="#241B12" stroke-width="4"/>
+  </g>
+
+  <!-- SWING on branch -->
+  <g>
+    <path d="M262 176 h44" stroke="#4A3520" stroke-width="8" stroke-linecap="round"/>
+    <g class="swing">
+      <path d="M274 180 v34 M296 180 v34" stroke="#8B7355" stroke-width="3"/>
+      <rect x="268" y="212" width="34" height="8" rx="3" fill="#57402A"/>
+    </g>
+  </g>
+
+  <!-- Small bushes -->
+  <g fill="#3F8A30">
+    <circle cx="576" cy="228" r="20"/>
+    <circle cx="596" cy="234" r="14"/>
+    <circle cx="122" cy="236" r="16"/>
+  </g>
+
+  <!-- Floating debris -->
+  <circle cx="634" cy="344" r="12" fill="#16211A"/>
+  <circle cx="80" cy="392" r="9" fill="#22301F"/>
+</svg>

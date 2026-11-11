@@ -5,12 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowDown } from "lucide-react";
+import { GlassRibbon } from "@/components/ui/GlassRibbon";
 import { PERSONAL_DETAILS } from "@/data/portfolioData";
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
-  const yParallax = useTransform(scrollY, [0, 500], [0, 40]);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  const yParallax = useTransform(scrollYProgress, [0, 1], [0, 35]);
 
   return (
     <section
@@ -37,31 +41,12 @@ export const Hero: React.FC = () => {
               {/* Ethereal Ambient Radial Glow behind portrait */}
               <div className="absolute w-[320px] sm:w-[420px] aspect-square rounded-full bg-[radial-gradient(circle,rgba(49,92,255,0.45)_0%,rgba(121,167,255,0.18)_40%,transparent_70%)] blur-3xl pointer-events-none" />
 
-              {/* Floating 3D Iridescent Glass Ribbon Artwork */}
-              <div className="absolute inset-0 pointer-events-none z-0">
-                <svg viewBox="0 0 400 400" className="w-full h-full animate-ribbon opacity-80" fill="none">
-                  <defs>
-                    <linearGradient id="heroRibbonFlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#79A7FF" stopOpacity="0.85" />
-                      <stop offset="35%" stopColor="#315CFF" stopOpacity="0.9" />
-                      <stop offset="70%" stopColor="#1B3BB2" stopOpacity="0.7" />
-                      <stop offset="100%" stopColor="#B7FF4A" stopOpacity="0.35" />
-                    </linearGradient>
-                    <filter id="ribbonGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="6" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-                  <path
-                    d="M 50,280 C 10,140 130,30 250,50 C 360,70 390,210 310,310 C 260,370 160,380 100,310"
-                    stroke="url(#heroRibbonFlow)"
-                    strokeWidth="32"
-                    strokeLinecap="round"
-                    filter="url(#ribbonGlowFilter)"
-                    opacity="0.55"
-                  />
-                </svg>
-              </div>
+              {/* Floating 3D Iridescent Glass Ribbon (Single source of truth) */}
+              <GlassRibbon
+                variant="hero"
+                className="absolute inset-0 pointer-events-none z-0 scale-110"
+                interactive={false}
+              />
 
               {/* Free-Floating Uncontainerized Portrait with Soft Multi-Directional Feathering */}
               <div className="relative z-10 w-[280px] sm:w-[350px] lg:w-[410px] aspect-[4/5] [mask-image:radial-gradient(ellipse_at_50%_45%,black_58%,transparent_92%)] [-webkit-mask-image:radial-gradient(ellipse_at_50%_45%,black_58%,transparent_92%)]">

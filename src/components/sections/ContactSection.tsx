@@ -113,28 +113,42 @@ export const ContactSection: React.FC = () => {
           {/* Bottom Primary CTA Button matching Screen 9 */}
           {!showDirectForm ? (
             <button
+              type="button"
               onClick={() => setShowDirectForm(true)}
-              className="btn-primary w-full py-4 text-xs font-bold"
+              className="btn-primary w-full py-4 text-xs font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)]"
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={15} />
             </button>
           ) : (
-            <form onSubmit={handleSendMessage} className="w-full space-y-3">
-              <textarea
-                required
-                rows={2}
-                placeholder="Write your note here..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="w-full p-3 rounded-xl border border-[var(--line)] bg-[var(--surface2)] text-xs text-[var(--text)] placeholder-[var(--muted)] focus:outline-none focus:border-[var(--blue2)]"
-              />
+            <form onSubmit={handleSendMessage} className="w-full space-y-3 text-left">
+              <div>
+                <label
+                  htmlFor="contact-note"
+                  className="block text-xs font-semibold text-[var(--text)] mb-1.5"
+                >
+                  Direct Inquiry Note
+                </label>
+                <textarea
+                  id="contact-note"
+                  required
+                  rows={3}
+                  placeholder="Share a brief overview of your product, challenge, or collaboration idea..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full p-3 rounded-xl border border-[var(--line)] bg-[var(--surface2)] text-xs text-[var(--text)] placeholder-[var(--muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-all resize-none"
+                />
+                <p className="text-[10px] text-[var(--muted)] mt-1 font-mono">
+                  Opens your email client with this note prepared for {PERSONAL_DETAILS.email}
+                </p>
+              </div>
+
               <button
                 type="submit"
-                className="btn-primary w-full py-3.5 text-xs font-bold flex items-center justify-center gap-2"
+                className="btn-primary w-full py-3.5 text-xs font-bold flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)]"
               >
                 <Send size={13} />
-                <span>Dispatch Note</span>
+                <span>Compose in Email Client</span>
               </button>
             </form>
           )}
@@ -142,7 +156,7 @@ export const ContactSection: React.FC = () => {
           {sent && (
             <div className="mt-3 text-[11px] font-mono text-[var(--lime)] flex items-center gap-1.5">
               <CheckCircle2 size={13} />
-              <span>Opening mail...</span>
+              <span>Handoff initiated — launching email composer...</span>
             </div>
           )}
 

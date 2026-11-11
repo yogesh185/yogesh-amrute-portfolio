@@ -32,6 +32,8 @@ export const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("ya-theme");
@@ -53,14 +55,51 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Accessible Modal: Escape key, body scroll lock, and focus management
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Initial focus on close button
+    setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+      // Restore focus to trigger button
+      triggerRef.current?.focus();
+    };
+  }, [menuOpen]);
+
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    if (typeof window !== "undefined") {
-      window.document.documentElement.dataset.theme = next;
-      try {
-        localStorage.setItem("ya-theme", next);
-      } catch {}
+
+    const updateDOM = () => {
+      setTheme(next);
+      if (typeof window !== "undefined") {
+        window.document.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem("ya-theme", next);
+        } catch {}
+      }
+    };
+
+    // Progressive enhancement: View Transitions API
+    if (typeof document !== "undefined" && "startViewTransition" in document) {
+      (document as unknown as { startViewTransition: (cb: () => void) => void }).startViewTransition(updateDOM);
+    } else {
+      updateDOM();
     }
   };
 
@@ -144,9 +183,12 @@ export const Navbar: React.FC = () => {
 
             {/* Mobile Hamburger Button (Matching Screen 1 of reference) */}
             <button
+              ref={triggerRef}
               onClick={() => setMenuOpen(true)}
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
-              aria-label="Open mobile navigation"
+              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-colors"
+              aria-label="Open mobile navigation menu"
+              aria-haspopup="dialog"
+              aria-expanded={menuOpen}
             >
               <Menu size={16} />
             </button>
@@ -154,30 +196,38 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
-      {/* Screen 2: Navigation Menu Fullscreen Overlay */}
+      {/* Screen 2: Navigation Menu Fullscreen Overlay (Accessible Dialog) */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mobile-menu-heading"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-50 flex flex-col justify-between p-6 sm:p-8 bg-[var(--bg)] text-[var(--text)] overflow-hidden"
           >
+            <h2 id="mobile-menu-heading" className="sr-only">
+              Navigation Menu
+            </h2>
+
             {/* Top Bar matching Screen 2 */}
             <div className="flex items-center justify-between">
               <Link
                 href="/"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] rounded-lg p-1"
               >
                 <span className="font-extrabold text-2xl tracking-tighter">YA</span>
                 <span className="w-2 h-2 rounded-full bg-[var(--blue)]" />
               </Link>
               <button
+                ref={closeButtonRef}
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center justify-center w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
-                aria-label="Close menu"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-colors"
+                aria-label="Close navigation menu"
               >
                 <X size={18} />
               </button>

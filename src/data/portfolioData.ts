@@ -69,16 +69,16 @@ export const PERSONAL_DETAILS = {
   availability: "Open to selected collaborations",
   email: "hello@yogeshamrute.dev",
   socials: {
-    github: "https://github.com/yogeshamrute",
+    github: "https://github.com/yogesh185",
     linkedin: "https://linkedin.com/in/yogeshamrute",
     instagram: "https://instagram.com/yogeshamrute",
     studio: "https://yarvo.agency"
   },
   stats: [
-    { label: "Production Projects", value: "5+" },
-    { label: "Concept Prototypes", value: "3+" },
-    { label: "Years Engineering", value: "2+" },
-    { label: "Code & Craft", value: "100%" }
+    { label: "Core Stack", value: "Next.js + AI" },
+    { label: "Architecture", value: "Full-Stack" },
+    { label: "Venture", value: "YARVO" },
+    { label: "Craft Ethos", value: "100%" }
   ]
 };
 
@@ -95,31 +95,31 @@ export const PROJECTS: Project[] = [
     url: "https://www.intrustindia.com",
     tags: ["Next.js", "React", "Tailwind CSS", "Supabase", "APIs"],
     metrics: [
-      { label: "Architecture Modules", value: "12+" },
-      { label: "Registered Users", value: "6K+" },
-      { label: "Catalog Items", value: "1.8L+" },
-      { label: "Performance Score", value: "98/100" }
+      { label: "Scope", value: "Multi-Role" },
+      { label: "Stack", value: "Next.js + RLS" },
+      { label: "Architecture", value: "Modular" },
+      { label: "Status", value: "Production" }
     ],
     visual: "intrust",
     previewImage: "/images/projects/intrust/intrust-preview.png",
     detailImage: "/images/projects/intrust/intrust-detail.png",
-    role: "Lead Full-Stack Engineer & Architect",
-    duration: "10 Months",
+    role: "Full-Stack Engineer & Architect",
+    duration: "Production Client",
     year: 2024,
     featured: true,
     accentColor: "#315CFF",
-    note: "Live production platform · Showcases modules personally designed and engineered by Yogesh.",
+    note: "Production platform · Developed core multi-role commerce and management interfaces.",
     highlights: [
-      "Engineered high-concurrency commerce checkout with real-time inventory locking",
-      "Architected role-based multi-tenant dashboard for customers, merchants, and operations staff",
-      "Implemented secure digital wallet ledger with transaction verification and gift card redemptions",
-      "Built internal HRM and merchant settlement workflows backed by Supabase row-level security"
+      "Engineered commerce checkout and inventory management workflows",
+      "Architected role-based multi-tenant dashboard for customers, merchants, and staff",
+      "Implemented secure digital wallet ledger and reward redemption flows",
+      "Built internal HRM and merchant settlement workflows backed by Supabase database schemas"
     ],
     architecture: [
       "Next.js App Router for server-rendered storefronts and dynamic admin dashboards",
       "Supabase PostgreSQL with Row Level Security (RLS) for multi-tenant data isolation",
-      "Optimistic UI updates and cache revalidation for high-speed merchant operations",
-      "Tailwind CSS component system tailored for dense data tables and mobile point-of-sale"
+      "Optimistic UI updates and cache revalidation for responsive merchant operations",
+      "Tailwind CSS component system tailored for dense data tables and mobile layouts"
     ],
     challenges: "Consolidating fragmented business functions—customer storefront, merchant orders, staff HRM, and wallet ledgers—into a single synchronized ecosystem without latency bottlenecks.",
     solution: "Designed modular domain-driven micro-services connected via unified API routes and Supabase realtime subscriptions, ensuring instant state sync across all operational portals."
@@ -136,29 +136,29 @@ export const PROJECTS: Project[] = [
     url: "https://aadiseeds.in",
     tags: ["Next.js", "Tailwind CSS", "Framer Motion", "Responsive Design"],
     metrics: [
-      { label: "Crop Varieties", value: "40+" },
-      { label: "Mobile First", value: "100%" },
-      { label: "Lighthouse Performance", value: "99" },
+      { label: "Platform", value: "Agrarian Web" },
+      { label: "Layout", value: "Mobile-First" },
+      { label: "Optimization", value: "High-Speed" },
       { label: "Status", value: "Live Client" }
     ],
     visual: "aadi",
     previewImage: "/images/projects/aadi-seeds/aadi-preview.png",
     detailImage: "/images/projects/aadi-seeds/aadi-preview.png",
     role: "Frontend Engineer & UI Designer",
-    duration: "3 Months",
+    duration: "Client Delivery",
     year: 2024,
     featured: true,
     accentColor: "#4E9F3D",
     note: "Real client deployment · Natural, premium agrarian design system.",
     highlights: [
       "Crafted an organic agrarian visual identity using earthy botanic tones and clean typography",
-      "Engineered an offline-resilient mobile crop catalog tailored for rural and low-bandwidth connections",
-      "Created dynamic product comparison filters for hybrid seed yields and seasonal sowing windows",
-      "Integrated regional distributor locator with direct WhatsApp inquiry dispatch"
+      "Engineered an offline-resilient mobile crop catalog tailored for rural mobile connectivity",
+      "Created structured product discovery filters for hybrid seed yields and seasonal sowing windows",
+      "Integrated regional distributor contact paths with direct inquiry dispatch"
     ],
     architecture: [
-      "Static Site Generation (SSG) for instant page load on 3G/4G rural mobile devices",
-      "Modern CSS variables and Tailwind utilities for high-contrast sunlight readability",
+      "Static Site Generation (SSG) for instant page load on mobile connections",
+      "Modern CSS variables and Tailwind utilities for high-contrast outdoor sunlight readability",
       "Lightweight responsive image optimization using next/image with AVIF/WebP formats"
     ],
     challenges: "Building a digital presence that feels modern and premium while remaining ultra-accessible and fast for farmers accessing the site from rural mobile devices with variable connectivity.",
@@ -177,15 +177,15 @@ export const PROJECTS: Project[] = [
     tags: ["Creative Direction", "Next.js", "WebGL", "AI Solutions"],
     metrics: [
       { label: "Role", value: "Founder & Lead" },
-      { label: "Core Pillars", value: "Strategy + Code" },
+      { label: "Pillars", value: "Strategy + Code" },
       { label: "Visual Identity", value: "Obsidian & Blue" },
-      { label: "Venture Status", value: "Active Studio" }
+      { label: "Status", value: "Active Studio" }
     ],
     visual: "yarvo",
     previewImage: "/images/projects/yarvo/yarvo-showcase.png",
     detailImage: "/images/projects/yarvo/yarvo-crystal.png",
     role: "Founder & Creative Technologist",
-    duration: "Ongoing",
+    duration: "Ongoing Venture",
     year: 2024,
     featured: true,
     accentColor: "#315CFF",
@@ -194,7 +194,7 @@ export const PROJECTS: Project[] = [
       "Formulated studio vision, service offerings, and high-standard design engineering ethos",
       "Built bespoke digital experiences blending cinematic 3D elements with micro-animations",
       "Architected reusable design system and rapid prototype pipelines for early-stage founders",
-      "Helped clients transition from legacy websites to modern performant web applications"
+      "Guided clients transitioning from legacy websites to modern performant web applications"
     ],
     architecture: [
       "Next.js App Router with React Server Components for crisp performance",
@@ -214,33 +214,33 @@ export const PROJECTS: Project[] = [
     summary: "AI-powered document intelligence experience exploring conversational retrieval over complex knowledge bases.",
     desc: "Doc AI transforms dense PDFs, contracts, research papers, and technical specifications into interactive conversational knowledge. Built with a robust retrieval-augmented generation (RAG) pipeline, vector search, and precise source attribution.",
     url: "#contact",
-    githubUrl: "https://github.com/yogeshamrute/doc-ai",
+    githubUrl: "https://github.com/yogesh185",
     tags: ["Python", "FastAPI", "LangChain", "Vector DB", "React"],
     metrics: [
-      { label: "Chunk Indexing", value: "Sub-Second" },
-      { label: "Accuracy", value: "Source-Cited" },
+      { label: "Retrieval", value: "Hybrid Vector" },
+      { label: "Citations", value: "Source-Cited" },
       { label: "Backend", value: "FastAPI + RAG" },
-      { label: "Frontend", value: "Streaming UI" }
+      { label: "UI", value: "Streaming Thread" }
     ],
     visual: "doc",
-    previewImage: "/images/projects/intrust/intrust-detail.png",
-    detailImage: "/images/concepts/nexus/nexus-mockup.png",
+    previewImage: "/images/projects/doc-ai/doc-ai-preview.svg",
+    detailImage: "/images/projects/doc-ai/doc-ai-detail.svg",
     role: "AI Engineer & Full-Stack Developer",
-    duration: "4 Months",
+    duration: "Technical Prototype",
     year: 2024,
     featured: true,
     accentColor: "#79A7FF",
-    note: "Built technical implementation · Real RAG architecture with source document citations.",
+    note: "Technical implementation · Hybrid RAG architecture with source document citations.",
     highlights: [
       "Engineered document ingestion pipeline supporting recursive chunking and semantic overlap",
       "Implemented vector embedding search using cosine similarity for high-precision context retrieval",
-      "Built real-time token streaming frontend with markdown rendering and highlighted source page links",
-      "Integrated evaluation guardrails to prevent hallucinations and maintain verifiable factuality"
+      "Built token streaming interface with markdown rendering and highlighted source page links",
+      "Integrated prompt constraints requiring verbatim quotes and verified citation anchors"
     ],
     architecture: [
       "FastAPI asynchronous backend with Python LangChain integration",
-      "Vector embeddings stored in Chroma / FAISS with hybrid keyword-vector search",
-      "Next.js client with EventSource streaming and syntax-highlighted citations"
+      "Vector embeddings stored with hybrid keyword-vector search",
+      "Next.js client with real-time streaming and syntax-highlighted citations"
     ],
     challenges: "Eliminating generative hallucinations and ensuring that every claim in the response maps strictly to an exact page, paragraph, and line in the uploaded document.",
     solution: "Implemented strict chunk-level metadata injection and prompt guardrails requiring the LLM to output verbatim quotes and verified citation anchors."
@@ -349,7 +349,7 @@ export const BEYOND_TECH: BeyondTechItem[] = [
     category: "MARTIAL ARTS",
     title: "Judo & Discipline",
     subtitle: "Balance, Patience & Leverage",
-    desc: "Years of competitive Judo tournament training taught me how to use an opponent's momentum, stay grounded under pressure, and respect the discipline required to stand back up after every throw.",
+    desc: "Trained and competed in Judo tournaments, learning balance, patience, leverage, and the mental discipline to reset and stand back up after every throw.",
     image: "/images/personal/martial-arts/martial-arts-original.png",
     symbol: "柔",
     quote: "Maximum efficiency, minimum effort. Mutual welfare and benefit.",

@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Play, Pause, ArrowDown } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
 import { PERSONAL_DETAILS } from "@/data/portfolioData";
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 500], [0, 40]);
 
@@ -130,15 +129,13 @@ export const Hero: React.FC = () => {
                 <ArrowRight size={15} />
               </Link>
 
-              {/* Circular Secondary Play Button */}
-              <button
-                type="button"
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="btn-round w-11 h-11 border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] transition-colors"
-                aria-label={isPlaying ? "Pause theme tone" : "Play theme tone"}
+              {/* Secondary Clean CTA */}
+              <Link
+                href="/contact"
+                className="btn-secondary text-xs sm:text-sm px-5 py-3.5 rounded-full"
               >
-                {isPlaying ? <Pause size={14} /> : <Play size={14} className="ml-0.5" />}
-              </button>
+                <span>Get in Touch</span>
+              </Link>
             </div>
 
             {/* Downward Scroll Indicator matching Screen 01 verbatim */}

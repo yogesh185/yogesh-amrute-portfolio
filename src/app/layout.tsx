@@ -11,11 +11,13 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogesh185.github.io/yogesh-amrute-portfolio";
+
 export const metadata: Metadata = {
   title: "Yogesh Amrute — Full-Stack Engineer, AI Builder & Creator",
   description:
     "Building digital products that move ideas forward. Full-stack engineer, AI builder and founder of YARVO.agency creating thoughtful digital products and experiences.",
-  metadataBase: new URL("https://yogeshamrute.dev"),
+  metadataBase: new URL(siteUrl),
   keywords: [
     "Yogesh Amrute",
     "Full-Stack Engineer",
@@ -27,13 +29,13 @@ export const metadata: Metadata = {
     "Tailwind CSS",
     "Bhopal India",
   ],
-  authors: [{ name: "Yogesh Amrute", url: "https://yogeshamrute.dev" }],
+  authors: [{ name: "Yogesh Amrute", url: siteUrl }],
   creator: "Yogesh Amrute",
   openGraph: {
     title: "Yogesh Amrute — Building digital products that move ideas forward",
     description:
       "Full-stack engineer, AI builder and entrepreneur creating thoughtful digital products and experiences.",
-    url: "https://yogeshamrute.dev",
+    url: siteUrl,
     siteName: "Yogesh Amrute Portfolio",
     images: [
       {

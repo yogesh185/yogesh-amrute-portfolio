@@ -12,7 +12,7 @@ export const IntroSection: React.FC = () => {
         <div className="lg:col-span-8">
           <div className="eyebrow-tag mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue2)]" />
-            <span>02 / CONTEXT & PHILOSOPHY</span>
+            <span>CRAFT & PHILOSOPHY</span>
           </div>
 
           <h2 className="font-sans text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text)] leading-[1.08] mb-6">

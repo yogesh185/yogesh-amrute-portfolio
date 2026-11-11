@@ -16,7 +16,7 @@ export const CapabilitiesSection: React.FC = () => {
           <div>
             <div className="eyebrow-tag mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue2)]" />
-              <span>04 / DISCIPLINES & EXPERTISE</span>
+              <span>DISCIPLINES & CRAFT</span>
             </div>
             <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-[var(--text)]">
               More than{" "}

@@ -119,7 +119,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <div className="mb-14">
             <h3 className="font-mono text-xs uppercase tracking-widest text-[var(--blue2)] mb-6 flex items-center gap-2">
               <CheckCircle2 size={16} />
-              <span>WHAT YOGESH SPECIFICALLY ARCHITECTED & SHIPPED</span>
+              <span>SELECTED ARCHITECTURAL CONTRIBUTIONS</span>
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {project.highlights.map((h, i) => (

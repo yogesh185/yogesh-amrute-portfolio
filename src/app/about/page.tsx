@@ -69,8 +69,8 @@ export default function AboutPage() {
           {/* Beyond Tech Gateway Callout */}
           <div className="mt-16 p-8 rounded-[32px] border border-[var(--line)] bg-[var(--surface)] flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--muted)] block mb-1">
-                SCREEN 08 // LIFE BEYOND TECH
+              <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--blue2)] block mb-1">
+                DISCIPLINES // LIFE BEYOND THE SCREEN
               </span>
               <h4 className="text-xl sm:text-2xl font-bold text-[var(--text)]">
                 Discover life beyond the screen.

@@ -29,9 +29,9 @@ const WORK_PROJECTS: WorkProject[] = [
     desc: "A connected business ecosystem with commerce, CRM, HRM, wallet and more.",
     tech: ["Next.js", "Supabase", "API"],
     metrics: [
-      { value: "12+", label: "Modules" },
-      { value: "6K+", label: "Users" },
-      { value: "1.8L+", label: "Items" },
+      { value: "Multi-Role", label: "Scope" },
+      { value: "Next.js", label: "Stack" },
+      { value: "Modular", label: "Architecture" },
     ],
     image: "/images/refined/intrust-work-card.png",
     url: "https://www.intrustindia.com",
@@ -45,9 +45,9 @@ const WORK_PROJECTS: WorkProject[] = [
     desc: "Agricultural business website and digital presence designed for high-yield farming solutions.",
     tech: ["Next.js", "Tailwind CSS", "Responsive"],
     metrics: [
-      { value: "40+", label: "Varieties" },
-      { value: "100%", label: "Mobile-First" },
-      { value: "99", label: "Performance" },
+      { value: "Agrarian Web", label: "Platform" },
+      { value: "Mobile-First", label: "Layout" },
+      { value: "Optimized", label: "Delivery" },
     ],
     image: "/images/refined/aadi-work-card.png",
     url: "https://aadiseeds.in",
@@ -77,11 +77,11 @@ const WORK_PROJECTS: WorkProject[] = [
     desc: "AI-powered document intelligence experience exploring conversational access to complex information.",
     tech: ["Python", "FastAPI", "LangChain"],
     metrics: [
-      { value: "Sub-Sec", label: "Indexing" },
-      { value: "Source", label: "Cited" },
-      { value: "RAG", label: "Pipeline" },
+      { value: "Hybrid Vector", label: "Retrieval" },
+      { value: "Source-Cited", label: "Citations" },
+      { value: "FastAPI", label: "Backend" },
     ],
-    image: "/images/concepts/nexus/nexus-mockup.png",
+    image: "/images/projects/doc-ai/doc-ai-preview.svg",
     url: "#contact",
   },
 ];
@@ -127,13 +127,16 @@ export const SelectedWork: React.FC = () => {
         {/* Project Cards List matching Screen 4 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {filtered.map((proj) => (
-            <div
+            <button
               key={proj.id}
+              type="button"
+              aria-haspopup="dialog"
+              aria-label={`Open details for ${proj.name}`}
               onClick={() => setDetailProject(proj)}
-              className="group cursor-pointer rounded-2xl overflow-hidden border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--blue2)] transition-all duration-300 p-4 flex flex-col justify-between"
+              className="group text-left cursor-pointer rounded-2xl overflow-hidden border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-all duration-300 p-4 flex flex-col justify-between w-full"
             >
               {/* Top Meta info */}
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3 w-full">
                 <div>
                   <h3 className="text-lg font-bold text-[var(--text)] group-hover:text-[var(--blue2)] transition-colors">
                     {proj.name}
@@ -154,7 +157,7 @@ export const SelectedWork: React.FC = () => {
                   className="object-contain p-2 group-hover:scale-103 transition-transform duration-500 ease-out"
                 />
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

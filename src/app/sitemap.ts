@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { PROJECTS } from "@/data/portfolioData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://yogeshamrute.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogesh185.github.io/yogesh-amrute-portfolio";
 
   const staticRoutes = [
     "",

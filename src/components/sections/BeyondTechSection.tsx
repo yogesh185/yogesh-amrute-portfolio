@@ -23,9 +23,12 @@ export const BeyondTechSection: React.FC = () => {
         {/* 2x2 Asymmetrical Photo Grid matching Screen 8 of reference */}
         <div className="grid grid-cols-2 gap-3.5 sm:gap-4 w-full max-w-[340px] sm:max-w-[420px] mb-8">
           {/* Tile 1: Music Guitar */}
-          <div
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-label="View story: Acoustic Music"
             onClick={() => setSelectedActivity(BEYOND_TECH[0])}
-            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--blue2)] transition-all duration-300 shadow-md"
+            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-all duration-300 shadow-md p-0"
           >
             <Image
               src="/images/personal/music/music-guitar.png"
@@ -35,15 +38,18 @@ export const BeyondTechSection: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
               <span className="font-mono text-[9px] uppercase tracking-wider text-white font-bold">
-                01 // MUSIC
+                Acoustic Music
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Tile 2: Football */}
-          <div
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-label="View story: Football & Goalkeeping"
             onClick={() => setSelectedActivity(BEYOND_TECH[2])}
-            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--blue2)] transition-all duration-300 shadow-md"
+            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-all duration-300 shadow-md p-0"
           >
             <Image
               src="/images/personal/sports/football-goalkeeper.png"
@@ -53,15 +59,18 @@ export const BeyondTechSection: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
               <span className="font-mono text-[9px] uppercase tracking-wider text-white font-bold">
-                02 // SPORTS
+                Goalkeeping
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Tile 3: Authentic Judo Martial Arts Photograph */}
-          <div
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-label="View story: Authentic Tournament Judo"
             onClick={() => setSelectedActivity(BEYOND_TECH[1])}
-            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--lime)] transition-all duration-300 shadow-md ring-1 ring-white/10"
+            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--lime)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)] transition-all duration-300 shadow-md ring-1 ring-white/10 p-0"
           >
             <Image
               src="/images/personal/martial-arts/martial-arts-original.png"
@@ -71,15 +80,18 @@ export const BeyondTechSection: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
               <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--lime)] font-bold">
-                03 // JUDO
+                Tournament Judo
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Tile 4: Chess */}
-          <div
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-label="View story: Chess Strategy"
             onClick={() => setSelectedActivity(BEYOND_TECH[3])}
-            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--blue2)] transition-all duration-300 shadow-md"
+            className="group cursor-pointer relative aspect-square rounded-2xl overflow-hidden bg-black/40 border border-[var(--line)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-all duration-300 shadow-md p-0"
           >
             <Image
               src="/images/personal/chess/chess.png"
@@ -89,10 +101,10 @@ export const BeyondTechSection: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
               <span className="font-mono text-[9px] uppercase tracking-wider text-white font-bold">
-                04 // CHESS
+                Tactical Chess
               </span>
             </div>
-          </div>
+          </button>
         </div>
 
         {/* Headline matching Screen 8 verbatim */}

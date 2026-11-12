@@ -2,144 +2,129 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { TextReveal } from "@/components/ui/TextReveal";
 
-interface ExperimentConcept {
-  id: string;
-  name: string;
-  badge: string;
-  subtitle: string;
-  desc: string;
-  image: string;
-}
-
-const EXPERIMENTS: ExperimentConcept[] = [
+const CONCEPTS = [
   {
     id: "avara",
     name: "AVARA",
     badge: "Concept",
-    subtitle: "Avatar communication",
-    desc: "A real-time AI companion for a more focused life.",
+    subtitle: "Avatar communication platform with AI personalities.",
+    desc: "Exploration of real-time synthetic presence, dynamic voice synthesis, and emotive conversational interfaces.",
     image: "/images/concepts/avara/avara-mockup.png",
   },
   {
     id: "orbit",
     name: "ORBIT",
     badge: "Concept",
-    subtitle: "Personal intelligence",
-    desc: "A contextual memory system that proactively decomposes tasks and manages daily workflows.",
+    subtitle: "A personal AI companion for tasks, memory and daily life.",
+    desc: "A contextual memory system that proactively decomposes complex objectives and schedules workflows.",
     image: "/images/concepts/orbit/orbit-mockup.png",
   },
   {
     id: "nexus",
     name: "NEXUS",
     badge: "Concept",
-    subtitle: "Connected lifestyle",
+    subtitle: "A connected lifestyle platform for services, identity and rewards.",
     desc: "Unified biometric digital identity and tokenized loyalty ecosystem across everyday web services.",
     image: "/images/concepts/nexus/nexus-mockup.png",
   },
 ];
 
 export const ConceptLab: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const current = EXPERIMENTS[currentIndex];
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % EXPERIMENTS.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + EXPERIMENTS.length) % EXPERIMENTS.length);
-  };
-
   return (
-    <section id="experiments" className="py-20 relative overflow-hidden">
-      <div className="section-shell max-w-xl mx-auto flex flex-col items-center text-center">
-        {/* Title & Subtitle matching Screen 6 */}
-        <div className="mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--text)] mb-2">
-            Experiments
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--muted)] max-w-md mx-auto">
-            High-potential ideas I&apos;m actively exploring and prototyping.
-          </p>
+    <section id="experiments" className="py-24 sm:py-32 relative overflow-hidden border-t border-[var(--line)]">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(0,242,254,0.12)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+
+      <div className="section-shell max-w-6xl mx-auto">
+        
+        {/* Header matching Reference Image */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <div className="eyebrow-tag mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--cyan)]" />
+              <span>CONCEPT LAB</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text)]">
+              <TextReveal>The future is a playground.</TextReveal>
+            </h2>
+          </div>
+
+          <div className="max-w-md">
+            <p className="text-xs sm:text-sm text-[var(--muted)] leading-relaxed mb-2 font-normal">
+              Independent product concepts exploring what&apos;s next in AI, identity and connected experiences.
+            </p>
+            <div className="flex items-center gap-2 text-[10px] font-mono text-[var(--blue2)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue2)] animate-pulse" />
+              <span>Speculative Prototypes · Non-Commercial Studies</span>
+            </div>
+          </div>
         </div>
 
-        {/* Experiment Card matching Screen 6 */}
-        <div className="w-full max-w-[340px] sm:max-w-[380px] rounded-[32px] overflow-hidden border border-[var(--line)] bg-[var(--surface)] p-5 shadow-2xl relative">
-          {/* Avatar Visual with glow */}
-          <div className="relative w-full aspect-[4/5] rounded-[24px] overflow-hidden bg-black/40 mb-6 flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.4 }}
-                className="relative w-full h-full"
-              >
-                <Image
-                  src={current.image}
-                  alt={current.name}
-                  fill
-                  className="object-cover object-center"
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Badge: Concept */}
-          <div className="inline-block px-3 py-1 rounded-full bg-[var(--blue)] text-white text-[10px] font-bold font-mono tracking-wider mb-2">
-            {current.badge}
-          </div>
-
-          {/* Name & Desc */}
-          <h3 className="text-2xl font-bold tracking-tight text-[var(--text)] mb-2">
-            {current.name}
-          </h3>
-
-          <p className="text-xs sm:text-sm text-[var(--muted)] leading-relaxed mb-6 px-2">
-            {current.desc}
-          </p>
-
-          {/* Pagination Carousel Dots matching Screen 6: • • • */}
-          <div className="flex items-center justify-center gap-2 mb-2">
-            {EXPERIMENTS.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  currentIndex === idx
-                    ? "w-6 bg-[var(--blue)]"
-                    : "bg-[var(--line)] hover:bg-[var(--muted)]"
-                }`}
-                aria-label={`Go to concept ${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Next / Prev Controls */}
-          <div className="flex items-center justify-between pt-4 border-t border-[var(--line)] mt-4">
-            <button
-              onClick={handlePrev}
-              className="text-xs text-[var(--muted)] hover:text-[var(--text)] flex items-center gap-1 font-mono transition-colors"
+        {/* 3 Concepts Cards Grid matching Reference Image */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {CONCEPTS.map((concept, idx) => (
+            <motion.div
+              key={concept.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.12 }}
+              className="h-full"
             >
-              <ArrowLeft size={13} />
-              <span>Prev</span>
-            </button>
-            <span className="font-mono text-[10px] text-[var(--muted)]">
-              0{currentIndex + 1} / 0{EXPERIMENTS.length}
-            </span>
-            <button
-              onClick={handleNext}
-              className="text-xs text-[var(--blue2)] hover:text-white flex items-center gap-1 font-mono transition-colors font-bold"
-            >
-              <span>Next</span>
-              <ArrowRight size={13} />
-            </button>
-          </div>
+              <SpotlightCard className="p-6 h-full flex flex-col justify-between group">
+                <div>
+                  {/* Phone Mockup Frame */}
+                  <div className="relative w-full aspect-[4/5] rounded-[24px] overflow-hidden bg-black/60 border border-[var(--line)] mb-6 flex items-center justify-center shadow-xl">
+                    <Image
+                      src={concept.image}
+                      alt={`${concept.name} mobile concept preview`}
+                      fill
+                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Badge & Title */}
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-[var(--blue)]/20 border border-[var(--blue)]/40 text-[var(--blue2)] text-[10px] font-mono font-bold tracking-wider">
+                      {concept.badge}
+                    </span>
+                    <span className="w-6 h-6 rounded-full bg-[var(--surface2)] border border-[var(--line)] flex items-center justify-center text-[var(--muted)] group-hover:text-[var(--text)] group-hover:bg-[var(--blue)] transition-colors">
+                      <ArrowUpRight size={12} />
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl font-bold tracking-tight text-[var(--text)] mb-2">
+                    {concept.name}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm font-medium text-[var(--muted)] mb-3 leading-snug">
+                    {concept.subtitle}
+                  </p>
+
+                  <p className="text-xs text-[var(--muted)] leading-relaxed font-normal">
+                    {concept.desc}
+                  </p>
+                </div>
+
+                <div className="pt-6 mt-4 border-t border-[var(--line)]">
+                  <Link
+                    href="/experiments"
+                    className="text-xs font-mono text-[var(--blue2)] hover:text-white transition-colors flex items-center gap-1.5"
+                  >
+                    <span>Explore Prototype</span>
+                    <ArrowUpRight size={11} />
+                  </Link>
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
         </div>
 
       </div>

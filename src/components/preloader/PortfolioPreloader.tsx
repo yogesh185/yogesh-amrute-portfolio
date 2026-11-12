@@ -81,14 +81,14 @@ export function PortfolioPreloader() {
           role="status"
           aria-live="polite"
           aria-label="Loading Yogesh Amrute portfolio experience"
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg-canvas)] text-[var(--fg-primary)] overflow-hidden select-none"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg)] text-[var(--text)] overflow-hidden select-none"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Subtle Ambient Background Mesh */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-radial from-[var(--blue)]/15 via-transparent to-transparent rounded-full blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(49,92,255,0.2)_0%,transparent_70%)] rounded-full blur-3xl" />
           </div>
 
           {/* Top Skip Button */}
@@ -97,10 +97,10 @@ export function PortfolioPreloader() {
               type="button"
               onClick={dismiss}
               aria-label="Skip intro animation (Esc)"
-              className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider text-[var(--fg-muted)] hover:text-[var(--fg-primary)] bg-[var(--surface-subtle)] hover:bg-[var(--surface-card)] border border-[var(--border-subtle)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider text-[var(--muted)] hover:text-[var(--text)] bg-[var(--surface)] hover:bg-[var(--surface2)] border border-[var(--line)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
             >
               <span>SKIP</span>
-              <kbd className="px-1.5 py-0.5 text-[10px] rounded bg-[var(--border-subtle)] font-mono text-[var(--fg-muted)] group-hover:text-[var(--fg-primary)]">
+              <kbd className="px-1.5 py-0.5 text-[10px] rounded bg-[var(--surface2)] font-mono text-[var(--muted)] group-hover:text-[var(--text)]">
                 ESC
               </kbd>
             </button>
@@ -121,7 +121,7 @@ export function PortfolioPreloader() {
 
                 {/* Status indicator line */}
                 <div className="mt-4 flex flex-col items-center gap-2 w-full">
-                  <div className="flex items-center gap-2 text-xs font-mono tracking-wider text-[var(--fg-muted)]">
+                  <div className="flex items-center gap-2 text-xs font-mono tracking-wider text-[var(--muted)]">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue)] animate-pulse" />
                     <span>
                       {stage === "coding" ? "Crafting digital experiences..." : "Systems ready"}
@@ -129,9 +129,9 @@ export function PortfolioPreloader() {
                   </div>
 
                   {/* Progress Line */}
-                  <div className="w-48 h-1 rounded-full bg-[var(--border-subtle)] overflow-hidden mt-1">
+                  <div className="w-48 h-1 rounded-full bg-[var(--line)] overflow-hidden mt-1">
                     <motion.div
-                      className="h-full bg-gradient-to-r from-[var(--blue)] to-[var(--cyan)] rounded-full"
+                      className="h-full bg-gradient-to-r from-[var(--blue)] to-[var(--blue2)] rounded-full"
                       initial={{ width: "15%" }}
                       animate={{ width: `${progress}%` }}
                       transition={{ duration: 0.7, ease: "easeOut" }}
@@ -153,11 +153,11 @@ export function PortfolioPreloader() {
                   <div className="absolute inset-0 flex items-center justify-center scale-90 pointer-events-none">
                     <GlassRibbon variant="compact" className="opacity-75" />
                   </div>
-                  <span className="relative z-10 font-bold text-4xl sm:text-5xl tracking-tighter text-[var(--fg-primary)]">
+                  <span className="relative z-10 font-bold text-4xl sm:text-5xl tracking-tighter text-[var(--text)]">
                     YA<span className="text-[var(--blue)]">.</span>
                   </span>
                 </div>
-                <p className="mt-3 text-xs tracking-widest font-mono text-[var(--fg-muted)] uppercase">
+                <p className="mt-3 text-xs tracking-widest font-mono text-[var(--muted)] uppercase">
                   Yogesh Amrute
                 </p>
               </motion.div>

@@ -15,53 +15,35 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-500">
-      {/* 01 Navigation */}
+    <main className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-500 overflow-x-hidden selection:bg-[var(--blue)] selection:text-white">
+      {/* 00 Floating Navigation Capsule */}
       <Navbar />
 
-      {/* 01 Cinematic Hero Section (Uncontainerized portrait & cobalt ribbon) */}
+      {/* 01 Chapter 01: Hero — The Signature Scene */}
       <Hero />
 
-      {/* Quiet Ambient Availability Strip */}
-      <div className="border-y border-[var(--line)] py-3.5 bg-[var(--surface)]/20 backdrop-blur-md">
-        <div className="section-shell flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[var(--muted)]">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--lime)] animate-ping" />
-            <span className="text-[var(--text)] font-semibold">STATUS:</span>
-            <span>OPEN TO SELECTED COLLABORATIONS</span>
-          </div>
-          <div className="hidden sm:flex items-center gap-6">
-            <span>BHOPAL, INDIA</span>
-            <span>·</span>
-            <span>UTC+5:30 IST</span>
-            <span>·</span>
-            <span>FOUNDER @ YARVO.AGENCY</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 02 Editorial Intro: "Curiosity creates. Technology brings it to life." */}
+      {/* 02 Chapter 02: Philosophy — Curiosity creates. Technology brings it to life. */}
       <IntroSection />
 
-      {/* 03 Selected Work: Real Projects (Intrust India, Aadi Seeds, YARVO, Doc AI) */}
+      {/* 03 Chapter 03: Selected Work — Things I've built. */}
       <SelectedWork />
 
-      {/* 04 Capabilities & Disciplines (Engineering, AI, Digital Experiences, Product) */}
+      {/* 04 Chapter 04: Capabilities — From idea to real product. */}
       <CapabilitiesSection />
 
-      {/* 05 Concept Lab: Speculative AI Prototypes (AVARA, ORBIT, NEXUS) */}
+      {/* 05 Chapter 05: Concept Lab — The future is a playground. */}
       <ConceptLab />
 
-      {/* 06 Studio Venture: YARVO.agency with 3D Crystal */}
+      {/* 06 Chapter 06: YARVO Studio — Building something of my own. */}
       <StudioSection />
 
-      {/* 07 About Yogesh: Profile Portrait, Philosophy & Stats */}
+      {/* 07 Chapter 07: About Me — A builder, a creator and a curious mind. */}
       <AboutSection />
 
-      {/* 08 Life Beyond the Screen: 4 Authentic Disciplines (Music, Judo, Football, Chess) */}
+      {/* 08 Chapter 08: Life Beyond Technology — A life beyond the screen. */}
       <BeyondTechSection />
 
-      {/* 09 Contact: "Let's Build Together" with Mountain Dusk Artwork */}
+      {/* 09 Chapter 09: Closing Scene — Let's build something meaningful. */}
       <ContactSection />
 
       {/* 10 Minimal Editorial Footer */}

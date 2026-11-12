@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,8 +16,17 @@ import {
   Mail,
 } from "lucide-react";
 import { PERSONAL_DETAILS } from "@/data/portfolioData";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 export const NAV_LINKS = [
+  { label: "Work", href: "#work" },
+  { label: "Experiments", href: "#experiments" },
+  { label: "Studio", href: "#studio" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
+];
+
+export const FULL_NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
@@ -31,9 +40,10 @@ export const Navbar: React.FC = () => {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("ya-theme");
@@ -49,27 +59,40 @@ export const Navbar: React.FC = () => {
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Section spy for homepage
+      if (pathname === "/") {
+        const sections = ["work", "experiments", "studio", "about", "contact"];
+        let current = "";
+        for (const s of sections) {
+          const el = document.getElementById(s);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 200 && rect.bottom >= 150) {
+              current = `#${s}`;
+            }
+          }
+        }
+        setActiveSection(current);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
-  // Accessible Modal: Escape key, body scroll lock, and focus management
+  // Modal accessibility: Escape key, body scroll lock, focus restoration
   useEffect(() => {
     if (!menuOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMenuOpen(false);
-      }
+      if (e.key === "Escape") setMenuOpen(false);
     };
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
-    // Initial focus on close button
     setTimeout(() => {
       closeButtonRef.current?.focus();
     }, 50);
@@ -77,7 +100,6 @@ export const Navbar: React.FC = () => {
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
-      // Restore focus to trigger button
       triggerRef.current?.focus();
     };
   }, [menuOpen]);
@@ -95,7 +117,6 @@ export const Navbar: React.FC = () => {
       }
     };
 
-    // Progressive enhancement: View Transitions API
     if (typeof document !== "undefined" && "startViewTransition" in document) {
       (document as unknown as { startViewTransition: (cb: () => void) => void }).startViewTransition(updateDOM);
     } else {
@@ -103,226 +124,210 @@ export const Navbar: React.FC = () => {
     }
   };
 
-  const getIsActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
-
   return (
     <>
-      <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-          scrolled
-            ? "bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur-xl border-b border-[var(--line)] shadow-lg shadow-black/10 py-3"
-            : "bg-transparent py-4 sm:py-5"
-        }`}
-      >
-        <div className="section-shell flex items-center justify-between">
-          {/* YA Wordmark */}
+      {/* Floating Capsule Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 pt-3.5 sm:pt-4 pointer-events-none transition-all duration-300">
+        <nav
+          aria-label="Primary"
+          className={`pointer-events-auto flex items-center justify-between gap-4 sm:gap-8 px-4 sm:px-5 py-2.5 rounded-full transition-all duration-300 ${
+            scrolled
+              ? "bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-2xl border border-[var(--line)] shadow-2xl shadow-black/30 scale-[0.98]"
+              : "bg-[color-mix(in_srgb,var(--bg)_60%,transparent)] backdrop-blur-xl border border-[var(--line)] shadow-lg shadow-black/10"
+          } max-w-5xl w-full`}
+        >
+          {/* YA Monogram */}
           <Link
             href="/"
-            className="group flex items-center gap-1 focus:outline-none"
+            className="group flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)] rounded-full px-1"
             aria-label="Yogesh Amrute Home"
           >
-            <span className="font-extrabold text-2xl tracking-tighter text-[var(--text)] group-hover:text-[var(--blue2)] transition-colors">
+            <span className="font-extrabold text-xl sm:text-2xl tracking-tighter text-[var(--text)] group-hover:text-[var(--blue2)] transition-colors">
               YA
             </span>
-            <span className="w-2 h-2 rounded-full bg-[var(--blue)] group-hover:scale-125 transition-transform" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue)] group-hover:scale-125 transition-transform" />
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-[13px] font-medium text-[var(--muted)]">
-            {NAV_LINKS.slice(1).map((link) => {
-              const active = getIsActive(link.href);
+          {/* Center Links (Desktop) */}
+          <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[var(--muted)]">
+            {NAV_LINKS.map((link) => {
+              const isSectionActive = activeSection === link.href;
               return (
-                <Link
+                <a
                   key={link.label}
                   href={link.href}
-                  className={`transition-colors relative py-1 ${
-                    active
-                      ? "text-[var(--text)] font-semibold"
-                      : "hover:text-[var(--text)]"
+                  className={`relative px-3.5 py-1.5 rounded-full transition-all duration-200 hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)] ${
+                    isSectionActive ? "text-[var(--text)] font-semibold" : ""
                   }`}
                 >
-                  <span>{link.label}</span>
-                  {active && (
+                  {isSectionActive && (
                     <motion.span
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--blue)] rounded-full"
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full bg-[var(--surface)] border border-[var(--line)] z-0 shadow-sm"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
-                </Link>
+                  <span className="relative z-10">{link.label}</span>
+                </a>
               );
             })}
-          </nav>
+          </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2.5">
+          {/* Right Action Capsule */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Let's Talk CTA */}
+            <Magnetic strength={0.25} className="hidden sm:inline-block">
+              <a
+                href="#contact"
+                className="btn-primary text-xs font-semibold px-4 py-2 rounded-full flex items-center gap-1.5 shadow-md shadow-[var(--glow)]"
+              >
+                <span>Let&apos;s Talk</span>
+                <ArrowUpRight size={13} />
+              </a>
+            </Magnetic>
+
             {/* Theme Toggle Button */}
             <button
+              type="button"
               onClick={toggleTheme}
-              className="flex items-center justify-center w-9 h-9 sm:w-auto sm:px-3 sm:py-1.5 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
-              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+              className="w-8 h-8 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--muted)] hover:text-[var(--text)] flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
             >
-              <span className="text-[var(--blue2)]">
-                {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
-              </span>
-              <span className="hidden sm:inline font-sans text-xs capitalize ml-1.5 font-medium">
-                {theme === "dark" ? "Light" : "Dark"}
-              </span>
+              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
             </button>
 
-            {/* Let's talk Desktop Pill CTA */}
-            <Link
-              href="/contact"
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[var(--blue)] hover:bg-[#254fe8] text-white font-bold text-xs shadow-md shadow-[var(--glow)] transition-all hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <span>Let&apos;s talk</span>
-              <ArrowUpRight size={13} />
-            </Link>
-
-            {/* Mobile Hamburger Button (Matching Screen 1 of reference) */}
+            {/* Mobile Menu Hamburger */}
             <button
               ref={triggerRef}
+              type="button"
               onClick={() => setMenuOpen(true)}
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-colors"
-              aria-label="Open mobile navigation menu"
+              aria-label="Open full site navigation"
               aria-haspopup="dialog"
               aria-expanded={menuOpen}
+              className="md:hidden w-8 h-8 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
             >
               <Menu size={16} />
             </button>
           </div>
-        </div>
+        </nav>
       </header>
 
-      {/* Screen 2: Navigation Menu Fullscreen Overlay (Accessible Dialog) */}
+      {/* Full-Screen Accessible Navigation Dialog (Mobile & Overlay) */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-labelledby="mobile-menu-heading"
+            aria-label="Site Navigation"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 flex flex-col justify-between p-6 sm:p-8 bg-[var(--bg)] text-[var(--text)] overflow-hidden"
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[100] bg-[var(--bg)]/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-10 select-none overflow-y-auto"
           >
-            <h2 id="mobile-menu-heading" className="sr-only">
-              Navigation Menu
-            </h2>
-
-            {/* Top Bar matching Screen 2 */}
-            <div className="flex items-center justify-between">
+            {/* Top Bar inside Overlay */}
+            <div className="flex items-center justify-between w-full max-w-5xl mx-auto">
               <Link
                 href="/"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] rounded-lg p-1"
+                className="group flex items-center gap-1.5 focus-visible:outline-none"
               >
-                <span className="font-extrabold text-2xl tracking-tighter">YA</span>
+                <span className="font-extrabold text-2xl tracking-tighter text-[var(--text)]">
+                  YA
+                </span>
                 <span className="w-2 h-2 rounded-full bg-[var(--blue)]" />
               </Link>
+
               <button
                 ref={closeButtonRef}
+                type="button"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center justify-center w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--blue2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-colors"
                 aria-label="Close navigation menu"
+                className="w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
               >
                 <X size={18} />
               </button>
             </div>
 
-            {/* Menu Items matching Screen 2 */}
-            <div className="relative z-10 flex flex-col justify-center my-auto py-6 space-y-5">
-              {NAV_LINKS.map((link, idx) => {
-                const isActive = getIsActive(link.href);
-                return (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.04 + 0.05, duration: 0.3 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className={`flex items-center gap-3 text-2xl sm:text-3xl font-sans font-semibold tracking-tight transition-colors ${
-                        isActive
-                          ? "text-[var(--text)]"
-                          : "text-[var(--muted)] hover:text-[var(--text)]"
-                      }`}
+            {/* Monumental Navigation Links */}
+            <div className="w-full max-w-5xl mx-auto my-auto py-8">
+              <div className="flex flex-col space-y-3 sm:space-y-4">
+                {FULL_NAV_LINKS.map((item, idx) => {
+                  return (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: -24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: 0.08 * idx,
+                        duration: 0.5,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
                     >
-                      {isActive ? (
-                        <span className="w-2.5 h-2.5 rounded-full bg-[var(--blue)] shadow-[0_0_12px_var(--blue)]" />
-                      ) : (
-                        <span className="w-2.5 h-2.5" />
-                      )}
-                      <span>{link.label}</span>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+                      <Link
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="group flex items-baseline gap-4 py-1 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text)] hover:text-[var(--blue2)] transition-colors focus-visible:outline-none"
+                      >
+                        <span className="font-mono text-xs sm:text-sm text-[var(--muted)] font-normal">
+                          0{idx + 1}
+                        </span>
+                        <span>{item.label}</span>
+                        <ArrowUpRight
+                          size={24}
+                          className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[var(--blue2)]"
+                        />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Ambient Background Wave matching Screen 2 */}
-            <div className="absolute bottom-16 left-0 right-0 h-48 pointer-events-none opacity-40 overflow-hidden">
-              <svg viewBox="0 0 600 200" className="w-full h-full" fill="none">
-                <defs>
-                  <linearGradient id="navWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#315CFF" stopOpacity="0.8" />
-                    <stop offset="50%" stopColor="#79A7FF" stopOpacity="0.5" />
-                    <stop offset="100%" stopColor="#B7FF4A" stopOpacity="0.2" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M0,120 C150,50 300,180 450,90 C520,50 580,110 650,80 L650,200 L0,200 Z"
-                  fill="url(#navWaveGrad)"
-                />
-              </svg>
-            </div>
+            {/* Bottom Metadata & Social Connections */}
+            <div className="w-full max-w-5xl mx-auto pt-6 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--muted)]">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--lime)] animate-pulse" />
+                <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--text)] font-semibold">
+                  AVAILABLE FOR COLLABORATIONS
+                </span>
+              </div>
 
-            {/* Bottom Ambient Glow Wave & Social Icons matching Screen 2 */}
-            <div className="relative z-10 pt-6 border-t border-[var(--line)] flex items-center justify-between">
-              <div className="flex items-center gap-5 text-[var(--muted)]">
+              <div className="flex items-center gap-4">
                 <a
-                  href={PERSONAL_DETAILS.socials.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub"
-                  className="hover:text-[var(--blue2)] transition-colors"
+                  href={`mailto:${PERSONAL_DETAILS.email}`}
+                  className="p-2 rounded-full border border-[var(--line)] hover:text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
+                  aria-label="Email Yogesh"
                 >
-                  <Github size={18} />
+                  <Mail size={14} />
                 </a>
                 <a
                   href={PERSONAL_DETAILS.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="LinkedIn"
-                  className="hover:text-[var(--blue2)] transition-colors"
+                  className="p-2 rounded-full border border-[var(--line)] hover:text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
+                  aria-label="LinkedIn Profile"
                 >
-                  <Linkedin size={18} />
+                  <Linkedin size={14} />
+                </a>
+                <a
+                  href={PERSONAL_DETAILS.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2 rounded-full border border-[var(--line)] hover:text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
+                  aria-label="GitHub Profile"
+                >
+                  <Github size={14} />
                 </a>
                 <a
                   href={PERSONAL_DETAILS.socials.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Instagram"
-                  className="hover:text-[var(--blue2)] transition-colors"
+                  className="p-2 rounded-full border border-[var(--line)] hover:text-[var(--text)] hover:border-[var(--blue2)] transition-colors"
+                  aria-label="Instagram Profile"
                 >
-                  <Instagram size={18} />
+                  <Instagram size={14} />
                 </a>
-                <a
-                  href={`mailto:${PERSONAL_DETAILS.email}`}
-                  aria-label="Email"
-                  className="hover:text-[var(--blue2)] transition-colors"
-                >
-                  <Mail size={18} />
-                </a>
-              </div>
-
-              <div className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-wider">
-                BHOPAL, INDIA
               </div>
             </div>
           </motion.div>

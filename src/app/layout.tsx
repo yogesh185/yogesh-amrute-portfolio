@@ -78,7 +78,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased min-h-screen selection:bg-[var(--blue)] selection:text-white">
+      <body className="antialiased min-h-screen selection:bg-[var(--blue)] selection:text-white bg-grain">
         <PortfolioPreloader />
         {children}
       </body>

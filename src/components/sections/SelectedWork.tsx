@@ -1,22 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ArrowLeft, X, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { TextReveal } from "@/components/ui/TextReveal";
 
 interface WorkProject {
   id: string;
   name: string;
   category: "Web" | "Product" | "AI";
   subtitle: string;
-  badge?: string;
   desc: string;
   tech: string[];
   metrics: { value: string; label: string }[];
   image: string;
-  url: string;
+  detailRoute: string;
+  externalUrl?: string;
 }
 
 const WORK_PROJECTS: WorkProject[] = [
@@ -24,24 +27,23 @@ const WORK_PROJECTS: WorkProject[] = [
     id: "intrust-india",
     name: "Intrust India",
     category: "Product",
-    subtitle: "Business & Commerce Ecosystem",
-    badge: "Production Platform",
-    desc: "A unified enterprise platform integrating customer-facing commerce, merchant management interfaces, CRM, HRM, digital wallets, and reward distribution into one cohesive system.",
-    tech: ["Next.js", "Supabase", "APIs", "Tailwind CSS"],
+    subtitle: "Business Ecosystem",
+    desc: "A multi-role enterprise platform integrating commerce, merchant management interfaces, CRM, HRM, digital wallets, gift cards and rewards into one cohesive ecosystem.",
+    tech: ["Next.js", "Supabase", "APIs", "PostgreSQL"],
     metrics: [
-      { value: "Multi-Role", label: "Architecture" },
+      { value: "Enterprise", label: "Architecture" },
       { value: "Next.js", label: "Core Stack" },
       { value: "PostgreSQL", label: "RLS Security" },
     ],
     image: "/images/refined/intrust-work-card.png",
-    url: "https://www.intrustindia.com",
+    detailRoute: "/work/intrust-india",
+    externalUrl: "https://www.intrustindia.com",
   },
   {
     id: "aadi-seeds",
     name: "Aadi Seeds",
     category: "Web",
-    subtitle: "Agriculture & Seed Business",
-    badge: "Client Project",
+    subtitle: "Agriculture & Business",
     desc: "An organic agrarian digital presence crafted for high-yield farming solutions. Features mobile-first crop directories, seed specifications, and localized distributor inquiry paths.",
     tech: ["Next.js", "Tailwind CSS", "SSG", "Responsive"],
     metrics: [
@@ -50,14 +52,14 @@ const WORK_PROJECTS: WorkProject[] = [
       { value: "Optimized", label: "Delivery" },
     ],
     image: "/images/refined/aadi-work-card.png",
-    url: "https://aadiseeds.in",
+    detailRoute: "/work/aadi-seeds",
+    externalUrl: "https://aadiseeds.in",
   },
   {
     id: "yarvo-agency",
     name: "YARVO.agency",
     category: "Product",
     subtitle: "Creative Technology Studio",
-    badge: "Founder Venture",
     desc: "An independent boutique studio combining strategy, design, full-stack engineering, and AI to build high-impact digital products and tactile web experiences.",
     tech: ["Next.js", "WebGL", "Creative Direction", "AI"],
     metrics: [
@@ -66,14 +68,14 @@ const WORK_PROJECTS: WorkProject[] = [
       { value: "Active", label: "Studio" },
     ],
     image: "/images/refined/yarvo-work-card.png",
-    url: "https://yarvo.agency",
+    detailRoute: "/work/yarvo-agency",
+    externalUrl: "https://yarvo.agency",
   },
   {
     id: "doc-ai",
     name: "Doc AI",
     category: "AI",
     subtitle: "Intelligent Document System",
-    badge: "Technical Prototype",
     desc: "AI-powered document intelligence experience exploring conversational retrieval over complex knowledge bases with hybrid vector embeddings and verbatim source citations.",
     tech: ["Python", "FastAPI", "LangChain", "Vector Search"],
     metrics: [
@@ -82,165 +84,118 @@ const WORK_PROJECTS: WorkProject[] = [
       { value: "FastAPI", label: "Backend" },
     ],
     image: "/images/projects/doc-ai/doc-ai-preview.svg",
-    url: "#contact",
+    detailRoute: "/work/doc-ai",
   },
 ];
 
-const FILTERS = ["All", "Web", "Product", "AI"];
+const FILTERS = ["All (4)", "Web (1)", "Product (2)", "AI (1)"];
 
 export const SelectedWork: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [detailProject, setDetailProject] = useState<WorkProject | null>(null);
+  const [activeFilter, setActiveFilter] = useState("All (4)");
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Close modal on Escape key & manage scroll lock
-  useEffect(() => {
-    if (!detailProject) return;
+  const filterCategory = (f: string) => {
+    if (f.startsWith("All")) return "All";
+    if (f.startsWith("Web")) return "Web";
+    if (f.startsWith("Product")) return "Product";
+    if (f.startsWith("AI")) return "AI";
+    return "All";
+  };
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDetailProject(null);
-    };
-
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [detailProject]);
-
-  const filtered = WORK_PROJECTS.filter((p) => {
-    if (activeFilter === "All") return true;
-    return p.category === activeFilter;
+  const currentCategory = filterCategory(activeFilter);
+  const filteredProjects = WORK_PROJECTS.filter((p) => {
+    if (currentCategory === "All") return true;
+    return p.category === currentCategory;
   });
 
+  const activeProject = filteredProjects[selectedIndex % filteredProjects.length] || WORK_PROJECTS[0];
+
+  const handleNext = () => {
+    setSelectedIndex((prev) => (prev + 1) % filteredProjects.length);
+  };
+
+  const handlePrev = () => {
+    setSelectedIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+  };
+
   return (
-    <section id="work" className="py-24 border-t border-[var(--line)] relative">
+    <section id="work" className="py-24 sm:py-32 relative overflow-hidden border-t border-[var(--line)]">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(49,92,255,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+
       <div className="section-shell max-w-6xl mx-auto">
         
-        {/* Header & Filter Row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        {/* Section Header with Category Filters */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <div className="eyebrow-tag mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue2)]" />
-              <span>SELECTED PRODUCTIONS</span>
+              <span>SELECTED WORK</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-[var(--text)]">
-              Things I&apos;ve{" "}
-              <em className="font-serif italic font-normal text-[var(--blue2)]">
-                built.
-              </em>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text)]">
+              <TextReveal>Things I&apos;ve built.</TextReveal>
             </h2>
           </div>
 
-          {/* Filter Chips */}
-          <div className="flex items-center gap-2 self-start md:self-end" role="tablist">
-            {FILTERS.map((f) => (
-              <button
-                key={f}
-                type="button"
-                role="tab"
-                aria-selected={activeFilter === f}
-                onClick={() => setActiveFilter(f)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] ${
-                  activeFilter === f
-                    ? "bg-[var(--blue)] text-white shadow-md shadow-[var(--glow)]"
-                    : "bg-[var(--surface)] border border-[var(--line)] text-[var(--muted)] hover:text-[var(--text)]"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-2 text-xs font-mono">
+            {FILTERS.map((f) => {
+              const active = activeFilter === f;
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => {
+                    setActiveFilter(f);
+                    setSelectedIndex(0);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)] ${
+                    active
+                      ? "bg-[var(--blue)] text-white font-semibold shadow-md shadow-[var(--glow)]"
+                      : "bg-[var(--surface)] text-[var(--muted)] border border-[var(--line)] hover:text-[var(--text)]"
+                  }`}
+                >
+                  {f}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Alternating Editorial Showcase Rows */}
-        <div className="space-y-12">
-          {filtered.map((proj, idx) => {
-            const isEven = idx % 2 === 1;
-            return (
-              <motion.div
-                key={proj.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                className="group rounded-3xl border border-[var(--line)] bg-[var(--surface)]/60 backdrop-blur-md p-6 sm:p-10 transition-all duration-300 hover:border-[var(--blue2)] hover:shadow-2xl hover:shadow-[var(--glow)]"
-              >
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isEven ? "lg:grid-flow-dense" : ""}`}>
+        {/* Featured Angled Case-Study Showcase */}
+        <div className="relative mb-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeProject.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <SpotlightCard className="p-6 sm:p-10 lg:p-12 shadow-2xl border border-[var(--line)]">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                   
-                  {/* Visual Column */}
-                  <div className={`lg:col-span-7 ${isEven ? "lg:col-start-6" : ""}`}>
-                    <button
-                      type="button"
-                      aria-haspopup="dialog"
-                      aria-label={`Open preview modal for ${proj.name}`}
-                      onClick={() => setDetailProject(proj)}
-                      className="w-full relative aspect-[16/10] rounded-2xl overflow-hidden bg-black/40 border border-white/5 p-3 flex items-center justify-center cursor-pointer group/preview focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)]"
-                    >
-                      <Image
-                        src={proj.image}
-                        alt={`${proj.name} showcase preview`}
-                        fill
-                        className="object-contain p-2 group-hover/preview:scale-103 transition-transform duration-500 ease-out"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition-opacity flex items-end p-4">
-                        <span className="font-mono text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                          Click to expand
-                        </span>
-                      </div>
-                    </button>
-                  </div>
-
-                  {/* Narrative Column */}
-                  <div className={`lg:col-span-5 flex flex-col justify-between ${isEven ? "lg:col-start-1" : ""}`}>
+                  {/* Left Column: Project Copy, Stack & CTAs */}
+                  <div className="lg:col-span-5 flex flex-col justify-between">
                     <div>
-                      {/* Meta & Badge */}
-                      <div className="flex items-center gap-2.5 mb-3">
-                        {proj.badge && (
-                          <span className="font-mono text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-[var(--surface2)] border border-[var(--line)] text-[var(--blue2)]">
-                            {proj.badge}
-                          </span>
-                        )}
-                        <span className="text-xs text-[var(--muted)] font-mono">
-                          {proj.category}
-                        </span>
+                      <div className="inline-block px-3 py-1 rounded-full bg-[var(--surface2)] border border-[var(--line)] text-[10px] font-mono uppercase tracking-wider text-[var(--blue2)] font-semibold mb-4">
+                        {activeProject.subtitle}
                       </div>
 
-                      {/* Project Title */}
-                      <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text)] mb-2 group-hover:text-[var(--blue2)] transition-colors">
-                        {proj.name}
+                      <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--text)] mb-4">
+                        {activeProject.name}
                       </h3>
 
-                      <p className="text-xs sm:text-sm font-medium text-[var(--blue2)] mb-4">
-                        {proj.subtitle}
+                      <p className="text-sm sm:text-base text-[var(--muted)] leading-relaxed mb-6 font-normal">
+                        {activeProject.desc}
                       </p>
 
-                      <p className="text-xs sm:text-sm text-[var(--muted)] leading-relaxed mb-6 font-normal">
-                        {proj.desc}
-                      </p>
-
-                      {/* Architecture Metrics Grid */}
-                      <div className="grid grid-cols-3 gap-3 py-3 border-y border-[var(--line)] mb-6 text-center">
-                        {proj.metrics.map((m) => (
-                          <div key={m.label}>
-                            <span className="font-sans text-xs sm:text-sm font-bold text-[var(--text)] block truncate">
-                              {m.value}
-                            </span>
-                            <span className="text-[10px] text-[var(--muted)] font-mono uppercase">
-                              {m.label}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Tech Chips */}
-                      <div className="flex flex-wrap gap-1.5 mb-8">
-                        {proj.tech.map((t) => (
+                      {/* Tech stack badges */}
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {activeProject.tech.map((t) => (
                           <span
                             key={t}
-                            className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-[var(--surface2)] border border-[var(--line)] text-[var(--text)]"
+                            className="px-2.5 py-1 rounded-md text-xs font-mono bg-[var(--surface2)] text-[var(--text)] border border-[var(--line)]"
                           >
                             {t}
                           </span>
@@ -248,152 +203,102 @@ export const SelectedWork: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex items-center gap-4 pt-2">
-                      <Link
-                        href={`/work/${proj.id}`}
-                        className="btn-primary text-xs px-5 py-2.5 shadow-md shadow-[var(--glow)]"
-                      >
-                        <span>Case Study</span>
-                        <ArrowRight size={13} />
-                      </Link>
+                    {/* Action Links */}
+                    <div className="flex items-center gap-4 pt-4 border-t border-[var(--line)]">
+                      <Magnetic strength={0.25}>
+                        <Link
+                          href={activeProject.detailRoute}
+                          className="btn-primary text-xs sm:text-sm px-5 py-3 rounded-full flex items-center gap-2 shadow-lg shadow-[var(--glow)] group"
+                        >
+                          <span>View Case Study</span>
+                          <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </Link>
+                      </Magnetic>
 
-                      {proj.url.startsWith("http") && (
+                      {activeProject.externalUrl && (
                         <a
-                          href={proj.url}
+                          href={activeProject.externalUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="btn-secondary text-xs px-4 py-2.5 rounded-full flex items-center gap-1.5"
+                          className="text-xs text-[var(--muted)] hover:text-[var(--text)] flex items-center gap-1.5 transition-colors font-mono"
                         >
                           <span>Live Site</span>
                           <ExternalLink size={12} />
                         </a>
                       )}
                     </div>
+                  </div>
 
+                  {/* Right Column: Floating Angled Tablet Mockup */}
+                  <div className="lg:col-span-7 flex justify-center items-center relative">
+                    <div className="relative w-full aspect-[16/10] max-w-[580px] rounded-2xl overflow-hidden shadow-2xl border border-[var(--line)] bg-black/60 group">
+                      <Image
+                        src={activeProject.image}
+                        alt={`${activeProject.name} showcase preview`}
+                        fill
+                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      {/* Glossy Overlay Highlight */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
+                    </div>
                   </div>
 
                 </div>
-              </motion.div>
-            );
-          })}
+              </SpotlightCard>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Bottom Interactive Thumbnail Carousel Strip matching Reference Image */}
+        <div className="flex items-center justify-between gap-4 pt-2">
+          {/* Thumbnails list */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 flex-1">
+            {WORK_PROJECTS.map((proj, idx) => {
+              const isSelected = activeProject.id === proj.id;
+              return (
+                <button
+                  key={proj.id}
+                  type="button"
+                  onClick={() => setSelectedIndex(idx)}
+                  className={`relative p-3 rounded-2xl border text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)] ${
+                    isSelected
+                      ? "border-[var(--blue)] bg-[var(--surface)] shadow-lg shadow-[var(--glow)]"
+                      : "border-[var(--line)] bg-[var(--surface)]/60 hover:border-[var(--blue2)] hover:bg-[var(--surface)]"
+                  }`}
+                >
+                  <div className="font-semibold text-xs text-[var(--text)] truncate">
+                    {proj.name}
+                  </div>
+                  <div className="text-[10px] text-[var(--muted)] truncate font-mono">
+                    {proj.subtitle}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Navigation Arrows */}
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous project"
+              className="w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+            >
+              <ArrowLeft size={14} />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next project"
+              className="w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+            >
+              <ArrowRight size={14} />
+            </button>
+          </div>
         </div>
 
       </div>
-
-      {/* Screen 5: Project Detail Modal Dialog */}
-      <AnimatePresence>
-        {detailProject && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-dialog-title"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-lg rounded-[32px] border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8 shadow-2xl text-[var(--text)] max-h-[90vh] overflow-y-auto"
-            >
-              {/* Top Bar with Back Arrow and Close */}
-              <div className="flex items-center justify-between mb-4">
-                <button
-                  type="button"
-                  onClick={() => setDetailProject(null)}
-                  className="p-2 rounded-full hover:bg-[var(--surface2)] text-[var(--muted)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-colors"
-                  aria-label="Back to work showcase"
-                >
-                  <ArrowLeft size={18} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDetailProject(null)}
-                  className="p-2 rounded-full hover:bg-[var(--surface2)] text-[var(--muted)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue2)] transition-colors"
-                  aria-label="Close dialog"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Main Visual Showcase */}
-              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-black/40 border border-white/5 mb-5 flex items-center justify-center">
-                <Image
-                  src={detailProject.image}
-                  alt={detailProject.name}
-                  fill
-                  className="object-contain p-3"
-                />
-              </div>
-
-              {/* Badge */}
-              {detailProject.badge && (
-                <div className="inline-block px-3 py-1 rounded-full bg-[var(--blue)] text-white text-[10px] font-bold font-mono tracking-wider mb-2">
-                  {detailProject.badge}
-                </div>
-              )}
-
-              {/* Title & Description */}
-              <h3 id="project-dialog-title" className="text-2xl font-bold tracking-tight mb-2">
-                {detailProject.name}
-              </h3>
-
-              <p className="text-xs sm:text-sm text-[var(--muted)] leading-relaxed mb-4">
-                {detailProject.desc}
-              </p>
-
-              {/* Technology Chips */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {detailProject.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="px-3 py-1 rounded-full text-[11px] font-mono bg-[var(--surface2)] border border-[var(--line)] text-[var(--text)]"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              {/* Metrics */}
-              <div className="grid grid-cols-3 gap-2 py-4 mb-6 border-y border-[var(--line)] text-center">
-                {detailProject.metrics.map((m) => (
-                  <div key={m.label}>
-                    <span className="font-sans text-base sm:text-lg font-bold text-[var(--text)] block mb-0.5">
-                      {m.value}
-                    </span>
-                    <span className="text-[10px] text-[var(--muted)] font-mono uppercase">
-                      {m.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-col gap-2.5">
-                {detailProject.url.startsWith("http") && (
-                  <a
-                    href={detailProject.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-primary w-full py-3.5 text-xs font-bold"
-                  >
-                    <span>View Live</span>
-                    <ArrowUpRight size={15} />
-                  </a>
-                )}
-
-                <Link
-                  href={`/work/${detailProject.id}`}
-                  className="w-full py-2.5 text-center text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] transition-colors flex items-center justify-center gap-1.5"
-                >
-                  <span>Read Full Architectural Case Study</span>
-                  <ArrowRight size={13} />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };

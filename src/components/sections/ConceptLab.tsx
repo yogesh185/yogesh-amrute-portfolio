@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { TextReveal } from "@/components/ui/TextReveal";
 

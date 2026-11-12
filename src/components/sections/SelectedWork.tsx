@@ -108,13 +108,15 @@ export const SelectedWork: React.FC = () => {
     return p.category === currentCategory;
   });
 
-  const activeProject = filteredProjects[selectedIndex % filteredProjects.length] || WORK_PROJECTS[0];
+  const activeProject = filteredProjects[selectedIndex] || filteredProjects[0] || WORK_PROJECTS[0];
 
   const handleNext = () => {
+    if (filteredProjects.length <= 1) return;
     setSelectedIndex((prev) => (prev + 1) % filteredProjects.length);
   };
 
   const handlePrev = () => {
+    if (filteredProjects.length <= 1) return;
     setSelectedIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
   };
 
@@ -249,12 +251,12 @@ export const SelectedWork: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        {/* Bottom Interactive Thumbnail Carousel Strip matching Reference Image */}
+        {/* Bottom Interactive Thumbnail Carousel Strip matching Filtered Projects */}
         <div className="flex items-center justify-between gap-4 pt-2">
-          {/* Thumbnails list */}
+          {/* Thumbnails list mapping strictly over filteredProjects */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 flex-1">
-            {WORK_PROJECTS.map((proj, idx) => {
-              const isSelected = activeProject.id === proj.id;
+            {filteredProjects.map((proj, idx) => {
+              const isSelected = selectedIndex === idx;
               return (
                 <button
                   key={proj.id}
@@ -278,24 +280,26 @@ export const SelectedWork: React.FC = () => {
           </div>
 
           {/* Navigation Arrows */}
-          <div className="hidden sm:flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label="Previous project"
-              className="w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
-            >
-              <ArrowLeft size={14} />
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label="Next project"
-              className="w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
-            >
-              <ArrowRight size={14} />
-            </button>
-          </div>
+          {filteredProjects.length > 1 && (
+            <div className="hidden sm:flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous project"
+                className="w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              >
+                <ArrowLeft size={14} />
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next project"
+                className="w-9 h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] text-[var(--text)] flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)]"
+              >
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          )}
         </div>
 
       </div>

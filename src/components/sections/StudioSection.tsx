@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { ArrowUpRight, Code2, BrainCircuit, Layers, TrendingUp } from "lucide-react";
 import { YARVO_STUDIO } from "@/data/portfolioData";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { TextReveal } from "@/components/ui/TextReveal";
 

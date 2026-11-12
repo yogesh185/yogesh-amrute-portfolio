@@ -44,23 +44,31 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("ya-theme");
-    const initial =
-      saved === "light" || saved === "dark"
-        ? saved
-        : window.matchMedia("(prefers-color-scheme: light)").matches
-        ? "light"
-        : "dark";
+    // Read and synchronize theme asynchronously to avoid synchronous effect renders
+    const rafId = requestAnimationFrame(() => {
+      try {
+        const saved = localStorage.getItem("ya-theme");
+        const initial =
+          saved === "light" || saved === "dark"
+            ? saved
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
 
-    setTheme(initial);
-    document.documentElement.dataset.theme = initial;
+        setTheme(initial);
+        document.documentElement.dataset.theme = initial;
+      } catch {
+        // Ignore storage errors
+      }
+    });
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Section spy for homepage
+      // Section spy on homepage
       if (pathname === "/") {
         const sections = ["work", "experiments", "studio", "about", "contact"];
         let current = "";
@@ -78,29 +86,59 @@ export const Navbar: React.FC = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [pathname]);
 
-  // Modal accessibility: Escape key, body scroll lock, focus restoration
+  // Modal accessibility: Escape key, focus trapping, and focus restoration
   useEffect(() => {
     if (!menuOpen) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-
+    const triggerButton = triggerRef.current;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
 
-    setTimeout(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusableElements = dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    const focusTimer = setTimeout(() => {
       closeButtonRef.current?.focus();
-    }, 50);
+    }, 40);
 
     return () => {
+      clearTimeout(focusTimer);
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
-      triggerRef.current?.focus();
+      triggerButton?.focus();
     };
   }, [menuOpen]);
 
@@ -113,7 +151,9 @@ export const Navbar: React.FC = () => {
         window.document.documentElement.dataset.theme = next;
         try {
           localStorage.setItem("ya-theme", next);
-        } catch {}
+        } catch {
+          // Ignore storage errors
+        }
       }
     };
 
@@ -122,6 +162,18 @@ export const Navbar: React.FC = () => {
     } else {
       updateDOM();
     }
+  };
+
+  const getTargetHref = (href: string) => {
+    if (pathname === "/") return href;
+    return `/${href}`;
+  };
+
+  const getIsActive = (link: { label: string; href: string }) => {
+    if (pathname === "/") {
+      return activeSection === link.href;
+    }
+    return pathname.startsWith(`/${link.label.toLowerCase()}`);
   };
 
   return (
@@ -148,19 +200,20 @@ export const Navbar: React.FC = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--blue)] group-hover:scale-125 transition-transform" />
           </Link>
 
-          {/* Center Links (Desktop) */}
+          {/* Center Links (Desktop - Route Aware) */}
           <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[var(--muted)]">
             {NAV_LINKS.map((link) => {
-              const isSectionActive = activeSection === link.href;
+              const active = getIsActive(link);
+              const target = getTargetHref(link.href);
               return (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  href={target}
                   className={`relative px-3.5 py-1.5 rounded-full transition-all duration-200 hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--blue)] ${
-                    isSectionActive ? "text-[var(--text)] font-semibold" : ""
+                    active ? "text-[var(--text)] font-semibold" : ""
                   }`}
                 >
-                  {isSectionActive && (
+                  {active && (
                     <motion.span
                       layoutId="nav-pill"
                       className="absolute inset-0 rounded-full bg-[var(--surface)] border border-[var(--line)] z-0 shadow-sm"
@@ -168,22 +221,22 @@ export const Navbar: React.FC = () => {
                     />
                   )}
                   <span className="relative z-10">{link.label}</span>
-                </a>
+                </Link>
               );
             })}
           </div>
 
           {/* Right Action Capsule */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Let's Talk CTA */}
+            {/* Let's Talk CTA - Route Aware */}
             <Magnetic strength={0.25} className="hidden sm:inline-block">
-              <a
-                href="#contact"
+              <Link
+                href={getTargetHref("#contact")}
                 className="btn-primary text-xs font-semibold px-4 py-2 rounded-full flex items-center gap-1.5 shadow-md shadow-[var(--glow)]"
               >
                 <span>Let&apos;s Talk</span>
                 <ArrowUpRight size={13} />
-              </a>
+              </Link>
             </Magnetic>
 
             {/* Theme Toggle Button */}
@@ -216,6 +269,7 @@ export const Navbar: React.FC = () => {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label="Site Navigation"

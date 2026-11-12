@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Code2, Sparkles, Compass } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navigation/Navbar";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { Footer } from "@/components/sections/Footer";

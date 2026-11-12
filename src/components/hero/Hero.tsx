@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ArrowDown, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, ArrowDown, MapPin } from "lucide-react";
 import { GlassRibbon } from "@/components/ui/GlassRibbon";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { TextReveal } from "@/components/ui/TextReveal";

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, CheckCircle2, Cpu, Layers, Sparkles } from "lucide-react";
+import { X, ExternalLink, Github, CheckCircle2, Cpu } from "lucide-react";
 import { Project } from "@/data/portfolioData";
 
 interface ProjectModalProps {

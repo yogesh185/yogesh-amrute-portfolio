@@ -21,9 +21,12 @@ export const Magnetic: React.FC<MagneticProps> = ({
 
   useEffect(() => {
     // Only enable magnetic tracking on fine-pointer desktop devices
-    if (typeof window !== "undefined") {
-      setCanHover(window.matchMedia("(pointer: fine)").matches);
-    }
+    const rafId = requestAnimationFrame(() => {
+      if (typeof window !== "undefined") {
+        setCanHover(window.matchMedia("(pointer: fine)").matches);
+      }
+    });
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   const springConfig = { stiffness: 180, damping: 14, mass: 0.2 };

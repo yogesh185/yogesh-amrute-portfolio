@@ -24,35 +24,41 @@ export function PortfolioPreloader() {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
+    let timer1: NodeJS.Timeout;
+    let timer2: NodeJS.Timeout;
+    let timer3: NodeJS.Timeout;
 
-    try {
-      const alreadySeen = sessionStorage.getItem(PRELOADER_SESSION_KEY);
-      if (alreadySeen === "1" || shouldReduceMotion) {
-        setIsVisible(false);
-        return;
+    const rafId = requestAnimationFrame(() => {
+      setMounted(true);
+
+      try {
+        const alreadySeen = sessionStorage.getItem(PRELOADER_SESSION_KEY);
+        if (alreadySeen === "1" || shouldReduceMotion) {
+          setIsVisible(false);
+          return;
+        }
+      } catch {
+        // Ignore storage errors
       }
-    } catch {
-      // Ignore storage errors
-    }
 
-    // Show preloader
-    setIsVisible(true);
+      // Show preloader
+      setIsVisible(true);
 
-    // Timeline sequence (max 2.4s total)
-    const timer1 = setTimeout(() => {
-      setStage("celebrating");
-      setProgress(85);
-    }, 1100);
+      // Timeline sequence (max 2.4s total)
+      timer1 = setTimeout(() => {
+        setStage("celebrating");
+        setProgress(85);
+      }, 1100);
 
-    const timer2 = setTimeout(() => {
-      setStage("resolving");
-      setProgress(100);
-    }, 1800);
+      timer2 = setTimeout(() => {
+        setStage("resolving");
+        setProgress(100);
+      }, 1800);
 
-    const timer3 = setTimeout(() => {
-      dismiss();
-    }, 2400);
+      timer3 = setTimeout(() => {
+        dismiss();
+      }, 2400);
+    });
 
     // Escape key listener to skip immediately
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -63,6 +69,7 @@ export function PortfolioPreloader() {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      cancelAnimationFrame(rafId);
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);

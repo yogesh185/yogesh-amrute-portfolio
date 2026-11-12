@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2, BrainCircuit, Layers3, Target, ArrowRight } from "lucide-react";
+import { Code2, BrainCircuit, Layers3, Target } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { TextReveal } from "@/components/ui/TextReveal";
 

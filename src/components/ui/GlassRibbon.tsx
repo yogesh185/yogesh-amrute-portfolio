@@ -30,7 +30,12 @@ export const GlassRibbon: React.FC<GlassRibbonProps> = ({
   const translateY = useTransform(springY, [-0.5, 0.5], [-10, 10]);
 
   useEffect(() => {
-    if (!interactive) return;
+    if (!interactive || typeof window === "undefined") return;
+
+    // Disable pointer tracking on touch devices or when reduced motion is preferred
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!isFinePointer || isReducedMotion) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
@@ -41,7 +46,7 @@ export const GlassRibbon: React.FC<GlassRibbonProps> = ({
       mouseY.set(Math.max(-1, Math.min(1, y)));
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [interactive, mouseX, mouseY]);
 

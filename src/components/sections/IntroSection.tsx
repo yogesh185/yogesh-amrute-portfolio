@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Compass, Code2, BrainCircuit } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { GlassRibbon } from "@/components/ui/GlassRibbon";
 

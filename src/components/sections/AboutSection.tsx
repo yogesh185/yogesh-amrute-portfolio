@@ -3,8 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { GlassRibbon } from "@/components/ui/GlassRibbon";
+import { ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { TextReveal } from "@/components/ui/TextReveal";
 

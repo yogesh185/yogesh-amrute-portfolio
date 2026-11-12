@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Github, CheckCircle2, Cpu, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, CheckCircle2 } from "lucide-react";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { PROJECTS } from "@/data/portfolioData";

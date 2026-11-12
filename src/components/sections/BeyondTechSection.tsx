@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, X, Sparkles, Check, ArrowUpRight } from "lucide-react";
+import { X, Check, ArrowUpRight } from "lucide-react";
 import { TextReveal } from "@/components/ui/TextReveal";
 
 interface LifeActivity {
